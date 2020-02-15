@@ -12,4 +12,9 @@ class AppTest {
         classUnderTest.getGreeting();
         assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
     }
+
+    @Test void boardDisplay() {
+        Board tmp = new Board(20, 10);
+        tmp.display();
+    }
 }
