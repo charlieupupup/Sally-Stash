@@ -17,4 +17,6 @@ class AppTest {
         Board tmp = new Board(20, 10);
         tmp.display();
     }
+
+
 }
