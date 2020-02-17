@@ -9,13 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class AppTest {
     @Test void appHasAGreeting() {
         App classUnderTest = new App();
-        classUnderTest.getGreeting();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+
     }
 
     @Test void boardDisplay() {
-        Board tmp = new Board(20, 10);
-        tmp.display();
+
     }
 
 

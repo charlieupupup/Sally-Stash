@@ -4,14 +4,41 @@
 package gc171.hw2;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+    private Player playerA;
+    private Player playerB;
 
     public static void main(String[] args) {
 
-        System.out.println(new App().getGreeting());
-
 
     }
+
+    //init 2 players
+    public void setPlayer(Integer row, Integer col, String playerName) {
+        this.playerA = new Player(row, col, "A");
+        this.playerB = new Player(row, col, "B");
+    }
+
+    //game pre
+
+    //init stack
+    public GreenStack gStack(String instuction, Integer curr) {
+        String stackName = "gStack" + curr;
+        GreenStack greenStack = new GreenStack(stackName, "g", instuction );
+        return greenStack;
+    }
+    //add stack
+    public Boolean placeStack(Player player, Stack stack) {
+        Boolean res = true;
+        if(player.checkStack(stack)) {
+            player.placeStack(stack);
+        }
+        else {
+            res = false;
+        }
+
+        return res;
+    }
+    //game
+
+
 }

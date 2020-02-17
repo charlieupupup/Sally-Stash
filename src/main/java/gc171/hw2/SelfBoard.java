@@ -1,6 +1,5 @@
 package gc171.hw2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SelfBoard {
@@ -14,122 +13,85 @@ public class SelfBoard {
     //init
     public SelfBoard(int rowIn, int colIn) {
         rowNum = rowIn;
-        colNum= colIn;
+        colNum = colIn;
+    }
+
+    public Integer getRowNum() {
+        return rowNum;
+    }
+
+    public Integer getColNum() {
+        return colNum;
+    }
+
+    public HashMap<String, Stack> getBoard() {
+        return board;
     }
 
 
-    //take down parameters
-    Boolean addStack(String insn, Stack stack) {
-        char r = insn.charAt(0);
-        char p = insn.charAt(2);
-
-        int row = r - 'A';
-        int col = Character.getNumericValue(insn.charAt(1));
-
-        stack.setRow(row);
-        stack.setCol(col);
-
-        //check
-        if(checkStack(stack)) {
-            board.put(stack.getName(), stack);
-            return true;
-        }
-
-        else {
-            return false;
-        }
-    }
     //generate output board
-    HashMap<Integer, String> genBoard(HashMap<String, Stack> currMap) {
-        HashMap<Integer, String> curr = new HashMap<>();
-
+    public HashMap<Integer, String> genBoard() {
+        HashMap<Integer, String> b = new HashMap<>();
+        Integer curr = 0;
+        //init map first
+        for (Integer r = 0; r < this.getRowNum(); r++) {
+            for (Integer c = 0; c < this.getColNum(); c++) {
+                curr = r * this.getColNum() + c;
+                b.put(curr, " ");
+            }
+        }
         //loop through HashMap
-        for (String k : currMap.keySet()) {
-            Stack currStack = currMap.get(k);
-            ArrayList<Integer> pos = currStack.getPos(rowNum, colNum);
+        for (String k : this.getBoard().keySet()) {
+            Stack stack = this.getBoard().get(k);
 
-            //put all the element in pos into curr map;
-            for (Integer i : pos) {
-                if(curr.containsKey(i)) {
-                    curr.put(0, "wrong");
-                    return curr;
-                }
-
-                else {
-                    curr.put(i, currStack.getColor());
+            //get element
+            HashMap<Integer, Block> eLists = stack.getElements();
+            for (Integer i : eLists.keySet()) {
+                Block tmp = eLists.get(i);
+                Integer bRow = tmp.getRow();
+                Integer bCol = tmp.getCol();
+                curr = bRow * this.getRowNum() + bCol;
+                if (b.get(curr).equals(" ")) {
+                    b.put(curr, tmp.getColor());
+                } else {
+                    b.put(0, "error");
                 }
             }
         }
 
-        return curr;
+
+        return b;
     }
-    //check
-    Boolean checkStack(Stack stack) {
+
+    //check win
+    public Boolean win() {
+        Boolean res = true;
+
+        for (String k : this.getBoard().keySet()) {
+            res = res & this.getBoard().get(k).getHit();
+        }
+
+        return res;
+    }
+
+    //check add new stack
+    public Boolean checkStack(Stack stack) {
+        Boolean check = true;
         board.put(stack.getName(), stack);
-        HashMap<Integer, String> tmp = genBoard(board);
+        HashMap<Integer, String> tmp = genBoard();
         if (tmp.containsKey(0)) {
             String res = tmp.get(0);
-            if(res.equals("wrong")) {
-                board.remove(stack.getName());
-                return false;
+            if (res.equals("error")) {
+
+                check = false;
             }
         }
-        return true;
+        board.remove(stack.getName());
+        return check;
     }
 
-    //print col num
-    public void printColNum() {
-
-        System.out.print("  ");
-        for (int c = 0; c < colNum - 1; c++) {
-            System.out.print(c + "|");
-        }
-        System.out.println(colNum - 1 + "  ");
+    public void addStack(Stack stack) {
+        board.put(stack.getName(), stack);
     }
-
-    public void printLine(HashMap<Integer, String> boardInfo, Integer currRow) {
-        for (int c = 0; c < colNum - 1; c++) {
-            Integer k = currRow * colNum + c;
-            String s = boardInfo.get(k);
-            if (s.equals("empty")) {
-                System.out.print(" |");
-            } else {
-                System.out.print(s + "|");
-            }
-        }
-
-        //print the last element
-        Integer k = currRow * colNum + colNum - 1;
-        String s = boardInfo.get(k);
-        if (s.equals("empty")) {
-            System.out.println("  " + currRow);
-        } else {
-            System.out.println(s + " " + currRow);
-        }
-
-    }
-
-    //print
-    public void printBoard() {
-        printColNum();
-
-        //gen board
-        HashMap<Integer, String> boardInfo = genBoard(board);
-
-        //now board information
-        for (int r = 0; r < rowNum; r++) {
-            char currRow = (char) (65 + r);
-            System.out.print(currRow + " ");
-
-            //print the element
-            printLine(boardInfo, r);
-
-        }
-
-        printColNum();
-
-
-    }
-
 
 }

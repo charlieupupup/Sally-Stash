@@ -1,5 +1,6 @@
 package gc171.hw2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RivalBoard {
@@ -11,23 +12,39 @@ public class RivalBoard {
     //init
     public RivalBoard(int rowIn, int colIn) {
         rowNum = rowIn;
-        colNum= colIn;
+        colNum = colIn;
+
+        //inti board
+        for(int r = 0; r < rowNum; r++) {
+            for (int c = 0; c < colNum; c++) {
+                Integer pos = r * colNum + c;
+                board.put(pos, " ");
+            }
+        }
     }
 
-    public void setBoard(HashMap<Integer, String> board) {
-        this.board = board;
+    public Integer getColNum() {
+        return colNum;
+    }
+
+    public Integer getRowNum() {
+        return rowNum;
+    }
+
+    public void setBoard(SelfBoard b, Integer row, Integer col) {
         Judge res = new Judge();
-        Integer pos = 0;
-        if (res.dig()) {
+        Integer pos = row * colNum + col;
+        board.remove(pos);
+
+        if (res.dig(b, row, col)) {
             board.put(pos, "*");
-        }
-        else {
+        } else {
             board.put(pos, "x");
         }
     }
 
     public HashMap<Integer, String> getBoard() {
-        return board;
+        return this.board;
     }
 
 

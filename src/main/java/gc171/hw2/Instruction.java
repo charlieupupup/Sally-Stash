@@ -23,17 +23,27 @@ public class Instruction {
     }
 
     //ask for input
-    void ask(String name) {
-        System.out.println("Player" + name + ", where do you want to place the first Green stack?");
+    public void place(String name, String order, String color) {
+        System.out.println("Player" + name + ", where do you want to place the "
+                + order
+                + color
+                + " stack?");
     }
 
-    //check input
-    Boolean check(InputStream is) throws IOException {
+    //ask for dig
+    public void dig() {
+        System.out.println("Input your dig");
+    }
+    //read from input
+    public String prompt(InputStream is) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
         String insn = in.readLine();
-
         insn = insn.toUpperCase();
+        return insn;
+    }
 
+    //check input format
+    public Boolean checkFormat(String insn) {
         //check the input format
         if (insn.length() != 3) {
             System.out.println("Invalid input");
@@ -53,13 +63,7 @@ public class Instruction {
 
     }
 
-    //check insn
-    Boolean boardCheck(Board b, String insn) {
-        if(!b.check(insn)) {
-            return false;
-        }
-        return true;
-    }
+
 
     //place stack
     public void place(String name) {
@@ -76,5 +80,8 @@ public class Instruction {
     public void win(String player) {
         System.out.println(player + "win");
     }
+
+    //miss
+    public void miss() {System.out.println("You missed!");}
 }
 
