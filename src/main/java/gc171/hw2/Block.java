@@ -1,11 +1,26 @@
 package gc171.hw2;
 
+/*
+    layer 1
+
+    the basic elements, block
+    each block represents one dot
+    this class contains the basie information:
+        hit or not
+        color
+        coordinate in map
+
+ */
+
 public class Block {
     private Boolean hit;
     private String color;
     private Integer row;
     private Integer col;
 
+    /*
+        constructor
+     */
     public Block(String color, Integer row, Integer col) {
         this.color = color;
         this.row = row;

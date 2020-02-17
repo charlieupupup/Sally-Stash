@@ -1,7 +1,14 @@
 package gc171.hw2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+/*
+    layer 2
+
+    Stack is based on block
+    1 stack is the collection of all blocks it contains
+
+ */
 
 public class Stack {
     private String name;
@@ -13,6 +20,11 @@ public class Stack {
     private String state;
     private HashMap<Integer, Block> elements = new HashMap<>();
 
+
+    /*
+        constructor
+
+     */
 
     public Stack(String stackName, String stackColor, String insn, Integer blockNum) {
         char r = insn.charAt(0);
@@ -31,18 +43,39 @@ public class Stack {
     }
 
 
-    //it to init ele
+    //according to the state & block num
+    //it through to init blocks
     public void initElements() {
-        Block tmp = new Block(color, row, col);
-        elements.put(0, tmp);
+        String state = this.getState();
+        if (state.equals("V")) {
+            for (Integer i = this.getRow(); i < this.blockNum; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                this.setElements(i, tmp);
+            }
+        }
+
+        if (state.equals("H")) {
+            for (int i = this.getRow(); i < this.blockNum; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                this.setElements(i, tmp);
+            }
+        }
     }
 
+    //check if whole stack hit or not
     public Boolean getHit() {
         Boolean tmp = true;
+
+        //loop through to see if all blocks hit or not
         for (Integer key : elements.keySet()) {
 
-            tmp = tmp & elements.get(key).getHit();
+            tmp = tmp && elements.get(key).getHit();
         }
+        //update the information
         this.hit = tmp;
         return this.hit;
     }
@@ -132,65 +165,3 @@ public class Stack {
     }
 }
 
-class GreenStack extends Stack {
-
-
-    public GreenStack(String stackName, String stackColor, String insn, Integer blockNum) {
-        super(stackName, stackColor, insn, blockNum);
-    }
-
-    @Override
-    public void initElements() {
-        String state = this.getState();
-        if (state.equals("V")) {
-            for (Integer i = this.getRow(); i < 2; i++) {
-                Integer eleRow = this.getRow();
-                Integer eleCol = this.getCol() + i;
-                Block tmp = new Block(this.getColor(), eleRow, eleCol);
-                this.setElements(i, tmp);
-            }
-        }
-
-        if (state.equals("H")) {
-            for (int i = this.getRow(); i < 2; i++) {
-                Integer eleRow = this.getRow() + i;
-                Integer eleCol = this.getCol();
-                Block tmp = new Block(this.getColor(), eleRow, eleCol);
-                this.setElements(i, tmp);
-            }
-        }
-
-
-    }
-
-}
-
-class PurpleStack extends Stack {
-
-    public PurpleStack(String stackName, String stackColor, String insn, Integer blockNum) {
-        super(stackName, stackColor, insn, blockNum);
-    }
-
-    @Override
-    public void initElements() {
-        String state = this.getState();
-        if (state.equals("V")) {
-            for (Integer i = this.getRow(); i < 3; i++) {
-                Integer eleRow = this.getRow();
-                Integer eleCol = this.getCol() + i;
-                Block tmp = new Block(this.getColor(), eleRow, eleCol);
-                this.setElements(i, tmp);
-            }
-        }
-
-        if (state.equals("H")) {
-            for (int i = this.getRow(); i < 3; i++) {
-                Integer eleRow = this.getRow() + i;
-                Integer eleCol = this.getCol();
-                Block tmp = new Block(this.getColor(), eleRow, eleCol);
-                this.setElements(i, tmp);
-            }
-        }
-
-    }
-}
