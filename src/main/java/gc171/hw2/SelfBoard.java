@@ -1,6 +1,14 @@
 package gc171.hw2;
 
 import java.util.HashMap;
+/*
+    layer 3
+
+    self board is based on stack
+
+    the collection of all player stack
+
+ */
 
 public class SelfBoard {
     //data for row & col
@@ -132,8 +140,8 @@ public class SelfBoard {
     }
 
 
-    //check win
-    public Boolean win() {
+    //check if you loose or not
+    public Boolean loose() {
         Boolean res = true;
 
         for (String k : this.getStackList().keySet()) {

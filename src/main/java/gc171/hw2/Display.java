@@ -2,6 +2,10 @@ package gc171.hw2;
 
 import java.util.HashMap;
 
+/*
+    the display for all screen
+ */
+
 public class Display {
     /*
 

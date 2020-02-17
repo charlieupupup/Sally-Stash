@@ -8,18 +8,22 @@ import java.io.InputStreamReader;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 
+/*
+    for all instruction input & output
+
+ */
 
 public class Instruction {
-    void start(String player) {
+    void start(String self, String rival) {
         System.out.println(
-                "Player " + player + ", you are going place Sally’s stash on the board. Make sure Player B isn’t\n" +
-                "looking! For each stack, type the coordinate of the upper left side of the stash,\n" +
-                "followed by either H (for horizontal) or V (for vertical). For example, M4H would \n" +
-                "place a stack horizontally starting at M4 and going to the right. You have\n" +
-                "2 Green stacks that are 1x2\n" +
-                "3 Purple stacks that are 1x3\n" +
-                "3 Red stacks that are 1x4\n" +
-                "2 Blue stacks that are 1x6");
+                "Player " + self + ", you are going place Sally’s stash on the board. Make sure Player " + rival + " isn’t\n" +
+                        "looking! For each stack, type the coordinate of the upper left side of the stash,\n" +
+                        "followed by either H (for horizontal) or V (for vertical). For example, M4H would \n" +
+                        "place a stack horizontally starting at M4 and going to the right. You have\n" +
+                        "2 Green stacks that are 1x2\n" +
+                        "3 Purple stacks that are 1x3\n" +
+                        "3 Red stacks that are 1x4\n" +
+                        "2 Blue stacks that are 1x6");
     }
 
     //ask for input
@@ -48,6 +52,7 @@ public class Instruction {
     public void dig() {
         System.out.println("Input your dig");
     }
+
     //read from input
     public String prompt(InputStream is) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
@@ -55,46 +60,6 @@ public class Instruction {
         insn = insn.toUpperCase();
         return insn;
     }
-
-    public Boolean gameFormat(String insn, Player player) {
-        if (insn.length() != 2) {
-            System.out.println("Invalid input");
-            return false;
-        }
-
-        char c0 = insn.charAt(0);
-        char c1 = insn.charAt(1);
-
-        if (!isLetter(c0) || !isDigit(c1)) {
-            System.out.println(("Invalid input"));
-            return false;
-        }
-
-
-
-        return true;
-    }
-
-    //check input format
-    public Boolean preFormat(String insn) {
-        if (insn.length() != 3) {
-            System.out.println("Invalid input");
-            return false;
-        }
-
-        char c0 = insn.charAt(0);
-        char c1 = insn.charAt(1);
-        char c2 = insn.charAt(2);
-
-        if (!isLetter(c0) || !isDigit(c1) || !isLetter(c2)) {
-            System.out.println(("Invalid input"));
-            return false;
-        }
-
-        return true;
-
-    }
-
 
 
     //place stack
@@ -114,6 +79,8 @@ public class Instruction {
     }
 
     //miss
-    public void miss() {System.out.println("You missed!");}
+    public void miss() {
+        System.out.println("You missed!");
+    }
 }
 

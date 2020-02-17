@@ -10,14 +10,17 @@ public class App {
     private Player playerB;
 
     public static void main(String[] args) {
+        //pre game
+
+        //game
 
 
     }
 
     //init 2 players
     public void setPlayer(Integer row, Integer col, String playerName) {
-        this.playerA = new Player(row, col, "A");
-        this.playerB = new Player(row, col, "B");
+        this.playerA = new Player(row, col, "A", "B");
+        this.playerB = new Player(row, col, "B", "A");
     }
 
     //game pre
@@ -32,72 +35,35 @@ public class App {
     }
 
     //init stack
-    public void gStack(String instruction, Player player) {
-        for (int i = 0; i < 2; i++) {
-            String stackName = "gStack" + i;
-            GreenStack greenStack = new GreenStack(stackName, "g", instruction, 2 );
-            if(!placeStack(player, greenStack)) {
+    public void initStack(String instruction, Player player, String color, Integer blockNum, Integer stackNum) {
+        for (int i = 0; i < stackNum; i++) {
+            String stackName = color + i;
+            Stack tmp = new Stack(stackName, color, instruction, blockNum );
+            Judge judge = new Judge();
+            if(judge.stackCheck(player, tmp)) {
                 System.out.println("invalid input");
                 i--;
+            }
+            else {
+                player.addStack(tmp);
             }
         }
 
     }
 
-    public void pStack(String instruction, Player player) {
-        for (int i = 0; i < 3; i++) {
-            String stackName = "gStack" + i;
-            PurpleStack purpleStack = new PurpleStack(stackName, "p", instruction, 3 );
-            if(!placeStack(player, purpleStack)) {
-                System.out.println("invalid input");
-                i--;
-            }
-        }
 
-    }
-    public void rStack(String instuction, Player player) {
-        for (int i = 0; i < 2; i++) {
-            String stackName = "gStack" + i;
-            GreenStack greenStack = new GreenStack(stackName, "g", instuction, 2 );
-            if(!placeStack(player, greenStack)) {
-                System.out.println("invalid input");
-                i--;
-            }
-        }
-
-    }
-    public void bStack(String instuction, Player player) {
-        for (int i = 0; i < 2; i++) {
-            String stackName = "gStack" + i;
-            GreenStack greenStack = new GreenStack(stackName, "g", instuction, 2 );
-            if(!placeStack(player, greenStack)) {
-                System.out.println("invalid input");
-                i--;
-            }
-        }
-
-    }
-    //add stack
-    public Boolean placeStack(Player player, Stack stack) {
-        Boolean res = true;
-        if(player.checkStack(stack)) {
-            player.placeStack(stack);
-        }
-        else {
-            res = false;
-        }
-
-        return res;
-    }
     //game
     public void game(Player self, Player rival) throws IOException {
+        //output instruction
         Instruction instruction = new Instruction();
         instruction.dig();
 
+        //judge system
+        Judge judge = new Judge();
         //check input format
         while (true) {
             String input = instruction.prompt(System.in);
-            if (instruction.gameFormat(input, self)) {
+            if (judge.gameFormat(self, input)) {
                 break;
             }
         }

@@ -1,7 +1,13 @@
 package gc171.hw2;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+/*
+    layer 3
+
+    rival board contains player guess on rival's board
+
+ */
 
 public class RivalBoard {
     //data for row & col
