@@ -14,7 +14,7 @@ public class Stack {
     private HashMap<Integer, Block> elements = new HashMap<>();
 
 
-    public Stack(String stackName, String stackColor, String insn) {
+    public Stack(String stackName, String stackColor, String insn, Integer blockNum) {
         char r = insn.charAt(0);
         char state = insn.charAt(2);
 
@@ -26,7 +26,7 @@ public class Stack {
         this.row = stackRow;
         this.col = stackCol;
         this.state = String.valueOf(state);
-        this.blockNum = 1;
+        this.blockNum = blockNum;
         initElements();
     }
 
@@ -39,7 +39,7 @@ public class Stack {
 
     public Boolean getHit() {
         Boolean tmp = true;
-        for(Integer key : elements.keySet()) {
+        for (Integer key : elements.keySet()) {
 
             tmp = tmp & elements.get(key).getHit();
         }
@@ -47,21 +47,36 @@ public class Stack {
         return this.hit;
     }
 
-    public Boolean dig(Integer row, Integer col) {
-        Boolean digRes = false;
-        //if match return true
-        for(Integer e : elements.keySet()) {
+    //check dig
+    public Boolean digCheck(Integer row, Integer col) {
+        //loop through all blocks
+        for (Integer e : elements.keySet()) {
             Block curr = elements.get(e);
             Integer blockRow = curr.getRow();
             Integer blockCol = curr.getCol();
 
-            if(row.equals(blockRow) && col.equals(blockCol)) {
-                curr.setHit(true);
-                digRes = true;
+            //if match return true
+            if (row.equals(blockRow) && col.equals(blockCol)) {
+                return true;
             }
         }
+
         //if no match return false
-        return digRes;
+        return false;
+    }
+
+    //dig block
+    public void digBlock(Integer row, Integer col) {
+        for (Integer e : elements.keySet()) {
+            Block curr = elements.get(e);
+            Integer blockRow = curr.getRow();
+            Integer blockCol = curr.getCol();
+
+            if (row.equals(blockRow) && col.equals(blockCol)) {
+                curr.setHit(true);
+            }
+        }
+
     }
 
     public HashMap<Integer, Block> getElements() {
@@ -120,9 +135,8 @@ public class Stack {
 class GreenStack extends Stack {
 
 
-    public GreenStack(String stackName, String stackColor, String insn) {
-        super(stackName, stackColor, insn);
-        this.setBlockNum(2);
+    public GreenStack(String stackName, String stackColor, String insn, Integer blockNum) {
+        super(stackName, stackColor, insn, blockNum);
     }
 
     @Override
@@ -149,10 +163,34 @@ class GreenStack extends Stack {
 
     }
 
+}
+
+class PurpleStack extends Stack {
+
+    public PurpleStack(String stackName, String stackColor, String insn, Integer blockNum) {
+        super(stackName, stackColor, insn, blockNum);
+    }
+
     @Override
-    public Boolean getHit() {
-        //it hash map
-        return this.getHit();
-        //return or results
+    public void initElements() {
+        String state = this.getState();
+        if (state.equals("V")) {
+            for (Integer i = this.getRow(); i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                this.setElements(i, tmp);
+            }
+        }
+
+        if (state.equals("H")) {
+            for (int i = this.getRow(); i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                this.setElements(i, tmp);
+            }
+        }
+
     }
 }

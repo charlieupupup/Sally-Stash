@@ -2,16 +2,18 @@ package gc171.hw2;
 
 public class Player {
     private String playerName;
+    private String rivalName;
     //board
     private SelfBoard selfBoard;
     //tree
     private RivalBoard rivalBoard;
 
     //guess inform
-    public Player(Integer row, Integer col, String playerName) {
+    public Player(Integer row, Integer col, String playerName, String rivalName) {
         this.selfBoard = new SelfBoard(row, col);
         this.rivalBoard = new RivalBoard(row, col);
         this.playerName = playerName;
+        this.rivalName = rivalName;
     }
 
 
@@ -19,6 +21,9 @@ public class Player {
         return playerName;
     }
 
+    public String getRivalName() {
+        return rivalName;
+    }
 
     public RivalBoard getRivalBoard() {
         return rivalBoard;

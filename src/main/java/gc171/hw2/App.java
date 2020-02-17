@@ -3,6 +3,8 @@
  */
 package gc171.hw2;
 
+import java.io.IOException;
+
 public class App {
     private Player playerA;
     private Player playerB;
@@ -19,12 +21,61 @@ public class App {
     }
 
     //game pre
+    public void gamePre() {
+        //green stack
+
+        //purple
+
+        //red
+
+        //blue
+    }
 
     //init stack
-    public GreenStack gStack(String instuction, Integer curr) {
-        String stackName = "gStack" + curr;
-        GreenStack greenStack = new GreenStack(stackName, "g", instuction );
-        return greenStack;
+    public void gStack(String instruction, Player player) {
+        for (int i = 0; i < 2; i++) {
+            String stackName = "gStack" + i;
+            GreenStack greenStack = new GreenStack(stackName, "g", instruction, 2 );
+            if(!placeStack(player, greenStack)) {
+                System.out.println("invalid input");
+                i--;
+            }
+        }
+
+    }
+
+    public void pStack(String instruction, Player player) {
+        for (int i = 0; i < 3; i++) {
+            String stackName = "gStack" + i;
+            PurpleStack purpleStack = new PurpleStack(stackName, "p", instruction, 3 );
+            if(!placeStack(player, purpleStack)) {
+                System.out.println("invalid input");
+                i--;
+            }
+        }
+
+    }
+    public void rStack(String instuction, Player player) {
+        for (int i = 0; i < 2; i++) {
+            String stackName = "gStack" + i;
+            GreenStack greenStack = new GreenStack(stackName, "g", instuction, 2 );
+            if(!placeStack(player, greenStack)) {
+                System.out.println("invalid input");
+                i--;
+            }
+        }
+
+    }
+    public void bStack(String instuction, Player player) {
+        for (int i = 0; i < 2; i++) {
+            String stackName = "gStack" + i;
+            GreenStack greenStack = new GreenStack(stackName, "g", instuction, 2 );
+            if(!placeStack(player, greenStack)) {
+                System.out.println("invalid input");
+                i--;
+            }
+        }
+
     }
     //add stack
     public Boolean placeStack(Player player, Stack stack) {
@@ -39,6 +90,23 @@ public class App {
         return res;
     }
     //game
+    public void game(Player self, Player rival) throws IOException {
+        Instruction instruction = new Instruction();
+        instruction.dig();
+
+        //check input format
+        while (true) {
+            String input = instruction.prompt(System.in);
+            if (instruction.gameFormat(input, self)) {
+                break;
+            }
+        }
+
+        //mark self board, mark rival board
+        //interface for input
+        //self.getRivalBoard().setBoard();
+
+    }
 
 
 }

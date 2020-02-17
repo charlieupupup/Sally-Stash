@@ -8,7 +8,7 @@ public class SelfBoard {
     private Integer colNum;
 
     //map to store stack data
-    private HashMap<String, Stack> board = new HashMap<>();
+    private HashMap<String, Stack> stackList = new HashMap<>();
 
     //init
     public SelfBoard(int rowIn, int colIn) {
@@ -24,16 +24,15 @@ public class SelfBoard {
         return colNum;
     }
 
-    public HashMap<String, Stack> getBoard() {
-        return board;
+    public HashMap<String, Stack> getStackList() {
+        return stackList;
     }
-
 
     //generate output board
     public HashMap<Integer, String> genBoard() {
         HashMap<Integer, String> b = new HashMap<>();
-        Integer curr = 0;
         //init map first
+        Integer curr = 0;
         for (Integer r = 0; r < this.getRowNum(); r++) {
             for (Integer c = 0; c < this.getColNum(); c++) {
                 curr = r * this.getColNum() + c;
@@ -41,8 +40,8 @@ public class SelfBoard {
             }
         }
         //loop through HashMap
-        for (String k : this.getBoard().keySet()) {
-            Stack stack = this.getBoard().get(k);
+        for (String k : this.getStackList().keySet()) {
+            Stack stack = this.getStackList().get(k);
 
             //get element
             HashMap<Integer, Block> eLists = stack.getElements();
@@ -51,47 +50,98 @@ public class SelfBoard {
                 Integer bRow = tmp.getRow();
                 Integer bCol = tmp.getCol();
                 curr = bRow * this.getRowNum() + bCol;
-                if (b.get(curr).equals(" ")) {
-                    b.put(curr, tmp.getColor());
+                if (tmp.getHit()) {
+                    b.put(curr, "*");
                 } else {
-                    b.put(0, "error");
+                    b.put(curr, tmp.getColor());
                 }
             }
         }
-
-
         return b;
     }
+
+    //boundary check
+    public Boolean boundCheck(Integer bRow, Integer bCol) {
+        if (bRow < 0 || bCol < 0 || bRow >= this.getRowNum() || bCol >= this.getColNum()) {
+            return false;
+        }
+        return true;
+    }
+
+    //conflict check
+    public Boolean conflictCheck(Stack stack) {
+        //init board for conflict detect
+        HashMap<Integer, String> b = genBoard();
+
+        //get stack elements
+        HashMap<Integer, Block> elements = stack.getElements();
+
+        for (Integer key : elements.keySet()) {
+            Block tmp = elements.get(key);
+
+            //check conflict with existing stack
+            Integer bRow = tmp.getRow();
+            Integer bCol = tmp.getCol();
+
+            Integer curr = bRow * this.getColNum() + bCol;
+            if (!b.get(curr).equals(" ")) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    //stack Check
+    public Boolean stackCheck(Stack stack) {
+        Boolean boundCheck = boundCheck(stack.getRow(), stack.getCol());
+        Boolean conflictCheck = conflictCheck(stack);
+        return boundCheck && conflictCheck;
+    }
+
+    //add stack
+    public void addStack(Stack stack) {
+        stackList.put(stack.getName(), stack);
+    }
+
+    //dig check
+    public Boolean digCheck(Integer bRow, Integer bCol) {
+        //should check coordinate format somewhere else
+        //input coordinate is correct
+        //loop through stack
+        HashMap<String, Stack> stacks = getStackList();
+
+        for (String k : stacks.keySet()) {
+            Stack currStack = stacks.get(k);
+            if(currStack.digCheck(bRow, bCol)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    //dig block
+    public void digBlock(Integer row, Integer col) {
+        HashMap<String, Stack> stacks = getStackList();
+
+        for (String k : stacks.keySet()) {
+            Stack currStack = stacks.get(k);
+            currStack.digBlock(row, col);
+        }
+
+    }
+
 
     //check win
     public Boolean win() {
         Boolean res = true;
 
-        for (String k : this.getBoard().keySet()) {
-            res = res & this.getBoard().get(k).getHit();
+        for (String k : this.getStackList().keySet()) {
+            res = res & this.getStackList().get(k).getHit();
         }
 
         return res;
     }
 
-    //check add new stack
-    public Boolean checkStack(Stack stack) {
-        Boolean check = true;
-        board.put(stack.getName(), stack);
-        HashMap<Integer, String> tmp = genBoard();
-        if (tmp.containsKey(0)) {
-            String res = tmp.get(0);
-            if (res.equals("error")) {
-
-                check = false;
-            }
-        }
-        board.remove(stack.getName());
-        return check;
-    }
-
-    public void addStack(Stack stack) {
-        board.put(stack.getName(), stack);
-    }
 
 }

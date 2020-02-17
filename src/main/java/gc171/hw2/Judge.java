@@ -33,4 +33,7 @@ public class Judge {
         res = selfBoard.win();
         return res;
     }
+
+    //
+
 }

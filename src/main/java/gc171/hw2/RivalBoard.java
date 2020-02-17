@@ -43,6 +43,14 @@ public class RivalBoard {
         }
     }
 
+    //boundary check
+    public Boolean boundCheck(Integer bRow, Integer bCol) {
+        if (bRow < 0 || bCol < 0 || bRow >= this.getRowNum() || bCol >= this.getColNum()) {
+            return false;
+        }
+        return true;
+    }
+
     public HashMap<Integer, String> getBoard() {
         return this.board;
     }

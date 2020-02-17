@@ -30,6 +30,20 @@ public class Instruction {
                 + " stack?");
     }
 
+    //game header
+    public void gameHead(String self, String rival) {
+        System.out.println("Player " + self + "'s turn");
+        for (int i = 0; i < 5; i++) {
+            System.out.print(" ");
+        }
+        System.out.print("Your tree");
+        for (int i = 0; i < 15; i++) {
+            System.out.print(" ");
+        }
+        System.out.println("Player " + rival + "'s tree");
+
+    }
+
     //ask for dig
     public void dig() {
         System.out.println("Input your dig");
@@ -42,9 +56,27 @@ public class Instruction {
         return insn;
     }
 
+    public Boolean gameFormat(String insn, Player player) {
+        if (insn.length() != 2) {
+            System.out.println("Invalid input");
+            return false;
+        }
+
+        char c0 = insn.charAt(0);
+        char c1 = insn.charAt(1);
+
+        if (!isLetter(c0) || !isDigit(c1)) {
+            System.out.println(("Invalid input"));
+            return false;
+        }
+
+
+
+        return true;
+    }
+
     //check input format
-    public Boolean checkFormat(String insn) {
-        //check the input format
+    public Boolean preFormat(String insn) {
         if (insn.length() != 3) {
             System.out.println("Invalid input");
             return false;
