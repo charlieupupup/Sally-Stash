@@ -63,10 +63,10 @@ public class Player {
 
     //place stack
     public Boolean checkStack(Stack stack) {
-        return this.selfBoard.stackCheck(stack);
+        return selfBoard.stackCheck(stack);
     }
 
     public void addStack(Stack stack) {
-        this.selfBoard.addStack(stack);
+        selfBoard.addStack(stack);
     }
 }

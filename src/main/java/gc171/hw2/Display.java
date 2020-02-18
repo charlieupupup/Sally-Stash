@@ -41,25 +41,28 @@ public class Display {
 
      */
     public void game(Player player) {
-        for (int i = 0; i < 3 * player.getSelfBoard().getColNum(); i++) {
-            System.out.println("-");
+        for (int i = 0; i < 10 * player.getSelfBoard().getColNum(); i++) {
+            System.out.print("-");
         }
+        System.out.println();
 
         Instruction tmp = new Instruction();
         tmp.gameHead(player.getPlayerName(), player.getRivalName());
 
         gameScreen(player);
 
-        for (int i = 0; i < 3 * player.getSelfBoard().getColNum(); i++) {
-            System.out.println("-");
+        for (int i = 0; i < 10 * player.getSelfBoard().getColNum(); i++) {
+            System.out.print("-");
         }
+
+        System.out.println();
 
 
     }
 
     public void gameCol(Player player) {
         printColNum(player.getSelfBoard().getColNum());
-        for (int i = 0; i < player.getSelfBoard().getRowNum(); i++) {
+        for (int i = 0; i < player.getSelfBoard().getColNum(); i++) {
             System.out.print(" ");
         }
         printColNum(player.getRivalBoard().getColNum());

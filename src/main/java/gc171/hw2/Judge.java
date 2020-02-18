@@ -59,11 +59,6 @@ public class Judge {
     }
 
     /*
-        check boundary
-     */
-
-
-    /*
         check gaming logic
 
      */
@@ -101,8 +96,8 @@ public class Judge {
     }
 
     //judge whether one player has win
-    public Boolean win(Player player) {
-        return player.loose();
+    public Boolean win(Player rival) {
+        return rival.loose();
     }
 
 

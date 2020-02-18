@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
@@ -14,6 +15,32 @@ import static java.lang.Character.isLetter;
  */
 
 public class Instruction {
+    private HashMap<Integer, String> orders;
+    private HashMap<String, String> colors;
+
+    public Instruction() {
+        orders = new HashMap<>();
+        orders.put(0, "first");
+        orders.put(1, "second");
+        orders.put(2, "third");
+        orders.put(3, "forth");
+        orders.put(4, "fifth");
+
+        colors = new HashMap<>();
+        colors.put("G", "Green");
+        colors.put("P", "Purple");
+        colors.put("R", "Red");
+        colors.put("B", "Blue");
+    }
+
+    public String getOrders(Integer num) {
+        return orders.get(num);
+    }
+
+    public String getColors(String c) {
+        return colors.get(c);
+    }
+
     void start(String self, String rival) {
         System.out.println(
                 "Player " + self + ", you are going place Sally’s stash on the board. Make sure Player " + rival + " isn’t\n" +
@@ -28,8 +55,8 @@ public class Instruction {
 
     //ask for input
     public void place(String name, String order, String color) {
-        System.out.println("Player" + name + ", where do you want to place the "
-                + order
+        System.out.println("Player " + name + ", where do you want to place the "
+                + order + " "
                 + color
                 + " stack?");
     }
@@ -41,7 +68,7 @@ public class Instruction {
             System.out.print(" ");
         }
         System.out.print("Your tree");
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 23; i++) {
             System.out.print(" ");
         }
         System.out.println("Player " + rival + "'s tree");
@@ -61,12 +88,6 @@ public class Instruction {
         return insn;
     }
 
-
-    //place stack
-    public void place(String name) {
-        System.out.println("Player " + name +
-                ", where do you want to place the first Green stack?");
-    }
 
     //find stack
     public void find() {

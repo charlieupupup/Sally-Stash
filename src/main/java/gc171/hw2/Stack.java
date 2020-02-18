@@ -45,23 +45,23 @@ public class Stack {
 
     //according to the state & block num
     //it through to init blocks
-    public void initElements() {
+    private void initElements() {
         String state = this.getState();
         if (state.equals("V")) {
-            for (Integer i = this.getRow(); i < this.blockNum; i++) {
-                Integer eleRow = this.getRow();
-                Integer eleCol = this.getCol() + i;
+            for (Integer i = 0; i < this.blockNum; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
                 Block tmp = new Block(this.getColor(), eleRow, eleCol);
-                this.setElements(i, tmp);
+                setElements(i, tmp);
             }
         }
 
         if (state.equals("H")) {
-            for (int i = this.getRow(); i < this.blockNum; i++) {
-                Integer eleRow = this.getRow() + i;
-                Integer eleCol = this.getCol();
+            for (int i = 0; i < this.blockNum; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
                 Block tmp = new Block(this.getColor(), eleRow, eleCol);
-                this.setElements(i, tmp);
+                setElements(i, tmp);
             }
         }
     }
@@ -117,7 +117,7 @@ public class Stack {
     }
 
     public void setElements(Integer blockNum, Block block) {
-        this.elements.put(blockNum, block);
+        elements.put(blockNum, block);
     }
 
     public String getName() {
@@ -141,14 +141,6 @@ public class Stack {
         this.col = col;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setRow(Integer row) {
         this.row = row;
     }
@@ -157,12 +149,5 @@ public class Stack {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setBlockNum(Integer blockNum) {
-        this.blockNum = blockNum;
-    }
 }
 

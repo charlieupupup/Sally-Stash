@@ -39,12 +39,14 @@ public class App {
         //game
         while (true) {
             main.game(main.playerA, main.playerB);
-            if (main.judge.win(main.playerA)) {
+            if (main.judge.win(main.playerB)) {
+                main.instruction.win(main.playerA.getPlayerName());
                 break;
             }
 
             main.game(main.playerB, main.playerA);
-            if (main.judge.win(main.playerB)) {
+            if (main.judge.win(main.playerA)) {
+                main.instruction.win(main.playerB.getPlayerName());
                 break;
             }
 
@@ -63,6 +65,7 @@ public class App {
 
     //game pre
     public void gamePre(Player self) throws IOException {
+        instruction.start(self.getPlayerName(), self.getRivalName());
         //green stack
         initStack(self, "G", 2, 2);
         //purple
@@ -76,26 +79,31 @@ public class App {
     //init stack
     public void initStack(Player self, String color, Integer blockNum, Integer stackNum) throws IOException {
         for (int i = 0; i < stackNum; i++) {
+            //display
+            display.pre(self);
+
             //read from input
             String input;
             while (true) {
-                //display
-                display.pre(self);
-
+                instruction.place(self.getPlayerName(), instruction.getOrders(i), instruction.getColors(color));
                 input = instruction.prompt(System.in);
+
+                //check the format
                 if (judge.preFormat(self, input)) {
-                    break;
+                    //check the stack fit or not
+                    String stackName = color + i;
+                    Stack tmp = new Stack(stackName, color, input, blockNum);
+                    if (judge.stackCheck(self, tmp)) {
+                        self.addStack(tmp);
+                        break;
+                    }
+                    else {
+                        System.out.println("Invalid input");
+                    }
+
                 }
             }
-            String stackName = color + i;
-            Stack tmp = new Stack(stackName, color, input, blockNum);
-            Judge judge = new Judge();
-            if (judge.stackCheck(self, tmp)) {
-                System.out.println("invalid input");
-                i--;
-            } else {
-                self.addStack(tmp);
-            }
+
         }
 
     }
