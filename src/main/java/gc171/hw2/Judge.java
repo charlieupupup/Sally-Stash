@@ -13,6 +13,7 @@ import static java.lang.Character.isLetter;
  */
 
 public class Judge {
+    private Instruction instruction = new Instruction();
     /*
         check input format
 
@@ -35,6 +36,7 @@ public class Judge {
             return false;
         }
 
+        //check the self board
         return true;
     }
 
@@ -57,6 +59,11 @@ public class Judge {
     }
 
     /*
+        check boundary
+     */
+
+
+    /*
         check gaming logic
 
      */
@@ -70,9 +77,32 @@ public class Judge {
         return player.getSelfBoard().digCheck(row, col);
     }
 
+    //dig process
+    public void digBlock(Player self, Player rival, String input) {
+        //convert input to coordinate
+        int stackRow = input.charAt(0) - 'A';
+        int stackCol = Character.getNumericValue(input.charAt(1));
+
+        //check if dig correct
+        //update self board & rival board
+
+        //hit update rival.selfBoard && self.onwBoard
+        if (digCheck(rival, stackRow, stackCol)) {
+            instruction.find();
+            rival.digBlock(stackRow, stackCol);
+            self.setRivalBoard(stackRow, stackCol, rival.getColor(stackRow, stackCol));
+        }
+
+        //only update self.rivalBoard
+        else {
+            instruction.miss();
+            self.setRivalBoard(stackRow, stackCol, "x");
+        }
+    }
+
     //judge whether one player has win
     public Boolean win(Player player) {
-        return player.getSelfBoard().loose();
+        return player.loose();
     }
 
 

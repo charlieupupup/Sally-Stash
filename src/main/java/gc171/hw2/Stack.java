@@ -81,7 +81,7 @@ public class Stack {
     }
 
     //check dig
-    public Boolean digCheck(Integer row, Integer col) {
+    public Boolean hasBlock(Integer row, Integer col) {
         //loop through all blocks
         for (Integer e : elements.keySet()) {
             Block curr = elements.get(e);
@@ -126,6 +126,7 @@ public class Stack {
 
     public String getColor() {
         return color;
+
     }
 
     public Integer getCol() {

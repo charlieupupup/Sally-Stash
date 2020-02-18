@@ -5,47 +5,96 @@ package gc171.hw2;
 
 import java.io.IOException;
 
+/*
+
+    the main app
+
+    makes up of 4 part:
+        player(database, back end)
+
+        instruction & display system(front end)
+
+        judge(state control)
+
+
+ */
+
 public class App {
     private Player playerA;
     private Player playerB;
+    private Instruction instruction = new Instruction();
+    private Display display = new Display();
+    private Judge judge = new Judge();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        App main = new App();
+
+        //init player
+        main.setPlayer();
+
         //pre game
+        main.gamePre(main.playerA);
+        main.gamePre(main.playerB);
 
         //game
+        while (true) {
+            main.game(main.playerA, main.playerB);
+            if (main.judge.win(main.playerA)) {
+                break;
+            }
 
+            main.game(main.playerB, main.playerA);
+            if (main.judge.win(main.playerB)) {
+                break;
+            }
+
+        }
 
     }
 
     //init 2 players
-    public void setPlayer(Integer row, Integer col, String playerName) {
-        this.playerA = new Player(row, col, "A", "B");
-        this.playerB = new Player(row, col, "B", "A");
+    public void setPlayer() {
+        Integer row = 20;
+        Integer col = 10;
+        //init player
+        playerA = new Player(row, col, "A", "B");
+        playerB = new Player(row, col, "B", "A");
     }
 
     //game pre
-    public void gamePre() {
+    public void gamePre(Player self) throws IOException {
         //green stack
-
+        initStack(self, "G", 2, 2);
         //purple
-
+        initStack(self, "P", 3, 3);
         //red
-
+        initStack(self, "R", 4, 3);
         //blue
+        initStack(self, "B", 6, 2);
     }
 
     //init stack
-    public void initStack(String instruction, Player player, String color, Integer blockNum, Integer stackNum) {
+    public void initStack(Player self, String color, Integer blockNum, Integer stackNum) throws IOException {
         for (int i = 0; i < stackNum; i++) {
+            //read from input
+            String input;
+            while (true) {
+                //display
+                display.pre(self);
+
+                input = instruction.prompt(System.in);
+                if (judge.preFormat(self, input)) {
+                    break;
+                }
+            }
             String stackName = color + i;
-            Stack tmp = new Stack(stackName, color, instruction, blockNum );
+            Stack tmp = new Stack(stackName, color, input, blockNum);
             Judge judge = new Judge();
-            if(judge.stackCheck(player, tmp)) {
+            if (judge.stackCheck(self, tmp)) {
                 System.out.println("invalid input");
                 i--;
-            }
-            else {
-                player.addStack(tmp);
+            } else {
+                self.addStack(tmp);
             }
         }
 
@@ -54,23 +103,20 @@ public class App {
 
     //game
     public void game(Player self, Player rival) throws IOException {
-        //output instruction
-        Instruction instruction = new Instruction();
         instruction.dig();
+        String input;
 
-        //judge system
-        Judge judge = new Judge();
         //check input format
         while (true) {
-            String input = instruction.prompt(System.in);
+            display.game(self);
+            input = instruction.prompt(System.in);
             if (judge.gameFormat(self, input)) {
                 break;
             }
         }
 
-        //mark self board, mark rival board
-        //interface for input
-        //self.getRivalBoard().setBoard();
+        //check if hit or not
+        judge.digBlock(self, rival, input);
 
     }
 

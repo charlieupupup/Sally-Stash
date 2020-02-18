@@ -68,6 +68,18 @@ public class SelfBoard {
         return b;
     }
 
+    public String getColor(Integer row, Integer col) {
+        String color = new String();
+        for (String k : this.getStackList().keySet()) {
+            Stack stack = this.getStackList().get(k);
+            if (stack.hasBlock(row, col)) {
+                color = stack.getColor();
+            }
+        }
+
+        return color;
+    }
+
     //boundary check
     public Boolean boundCheck(Integer bRow, Integer bCol) {
         if (bRow < 0 || bCol < 0 || bRow >= this.getRowNum() || bCol >= this.getColNum()) {
@@ -120,7 +132,7 @@ public class SelfBoard {
 
         for (String k : stacks.keySet()) {
             Stack currStack = stacks.get(k);
-            if(currStack.digCheck(bRow, bCol)) {
+            if (currStack.hasBlock(bRow, bCol)) {
                 return true;
             }
         }

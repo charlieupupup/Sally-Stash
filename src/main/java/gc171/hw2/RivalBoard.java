@@ -21,7 +21,7 @@ public class RivalBoard {
         colNum = colIn;
 
         //inti board
-        for(int r = 0; r < rowNum; r++) {
+        for (int r = 0; r < rowNum; r++) {
             for (int c = 0; c < colNum; c++) {
                 Integer pos = r * colNum + c;
                 board.put(pos, " ");
@@ -37,16 +37,10 @@ public class RivalBoard {
         return rowNum;
     }
 
-    public void setBoard(SelfBoard b, Integer row, Integer col) {
-        Judge res = new Judge();
+    public void setBoard(Integer row, Integer col, String status) {
         Integer pos = row * colNum + col;
-        board.remove(pos);
+        board.put(pos, status);
 
-        if (res.dig(b, row, col)) {
-            board.put(pos, "*");
-        } else {
-            board.put(pos, "x");
-        }
     }
 
     //boundary check
@@ -56,6 +50,7 @@ public class RivalBoard {
         }
         return true;
     }
+
 
     public HashMap<Integer, String> getBoard() {
         return this.board;

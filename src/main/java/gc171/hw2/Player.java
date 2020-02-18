@@ -43,8 +43,22 @@ public class Player {
     }
 
     //win
-    public Boolean win() {
+    public Boolean loose() {
         return this.selfBoard.loose();
+    }
+
+    //return certain block color
+    public String getColor(Integer row, Integer col) {
+        return selfBoard.getColor(row, col);
+    }
+    //update self board
+    public void digBlock(Integer row, Integer col) {
+        selfBoard.digBlock(row,col);
+    }
+
+    //update rival board
+    public void setRivalBoard(Integer row, Integer col, String status) {
+        rivalBoard.setBoard(row, col, status);
     }
 
     //place stack
