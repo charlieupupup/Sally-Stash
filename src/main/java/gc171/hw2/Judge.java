@@ -31,12 +31,11 @@ public class Judge {
         char c1 = input.charAt(1);
         char c2 = input.charAt(2);
 
-        if (!isLetter(c0) || !isDigit(c1) || !isLetter(c2) || (c2 != 'V' || c2 != 'H')) {
+        if (!isLetter(c0) || !isDigit(c1) || !isLetter(c2) || (c2 != 'V' && c2 != 'H')) {
             System.out.println(("Invalid input"));
             return false;
         }
 
-        //check the self board
         return true;
     }
 

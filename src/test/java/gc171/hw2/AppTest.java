@@ -14,10 +14,6 @@ class AppTest {
     private Display display = new Display();
     private Judge judge = new Judge();
 
-    @Test
-    void main() {
-        initStack(this.playerA);
-    }
 
     @Test
     void setPlayer() {
@@ -32,10 +28,6 @@ class AppTest {
     void gamePre() {
     }
 
-    @Test
-    void initStack(Player player) {
-
-    }
 
     @Test
     void game() {

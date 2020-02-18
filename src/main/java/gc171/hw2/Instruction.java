@@ -17,6 +17,8 @@ import static java.lang.Character.isLetter;
 public class Instruction {
     private HashMap<Integer, String> orders;
     private HashMap<String, String> colors;
+    private Integer row = 20;
+    private Integer col = 10;
 
     public Instruction() {
         orders = new HashMap<>();
@@ -88,20 +90,34 @@ public class Instruction {
         return insn;
     }
 
+    //hyphenation
+    public void hyphen() {
+        for (int i = 0; i < 10 * col; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
+
 
     //find stack
     public void find() {
+        hyphen();
         System.out.println("You found a stack!");
+        hyphen();
     }
 
     //win
     public void win(String player) {
+        hyphen();
         System.out.println(player + "win");
+        hyphen();
     }
 
     //miss
     public void miss() {
+        hyphen();
         System.out.println("You missed!");
+        hyphen();
     }
 }
 

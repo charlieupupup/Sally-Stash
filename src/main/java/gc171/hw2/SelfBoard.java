@@ -57,7 +57,7 @@ public class SelfBoard {
                 Block tmp = eLists.get(i);
                 Integer bRow = tmp.getRow();
                 Integer bCol = tmp.getCol();
-                curr = bRow * this.getRowNum() + bCol;
+                curr = bRow * this.getColNum() + bCol;
                 if (tmp.getHit()) {
                     b.put(curr, "*");
                 } else {
@@ -81,10 +81,18 @@ public class SelfBoard {
     }
 
     //boundary check
-    public Boolean boundCheck(Integer bRow, Integer bCol) {
-        if (bRow < 0 || bCol < 0 || bRow >= this.getRowNum() || bCol >= this.getColNum()) {
-            return false;
+    public Boolean boundCheck(Stack stack) {
+
+        HashMap<Integer, Block> blockLists = stack.getElements();
+        for (Integer k : blockLists.keySet()) {
+            Integer bRow = blockLists.get(k).getRow();
+            Integer bCol = blockLists.get(k).getCol();
+
+            if (bRow < 0 || bCol < 0 || bRow >= this.getRowNum() || bCol >= this.getColNum()) {
+                return false;
+            }
         }
+
         return true;
     }
 
@@ -113,9 +121,13 @@ public class SelfBoard {
 
     //stack Check
     public Boolean stackCheck(Stack stack) {
-        Boolean boundCheck = boundCheck(stack.getRow(), stack.getCol());
-        Boolean conflictCheck = conflictCheck(stack);
-        return boundCheck && conflictCheck;
+        if (boundCheck(stack) && conflictCheck(stack)) {
+
+            return true;
+
+        }
+
+        return false;
     }
 
     //add stack
