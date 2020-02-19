@@ -2,75 +2,120 @@ package gc171.hw2;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InstructionTest {
 
-    Instruction insn = new Instruction();
+    Instruction test = new Instruction();
+    Player p = new Player(20, 10, "A", "B");
+    @Test
+    void pre() {
+        test.pre(p);
+    }
+
+    @Test
+    void preCol() {
+        test.preCol(p);
+    }
+
+    @Test
+    void preScreen() {
+        test.preScreen(p);
+    }
+
+    @Test
+    void game() {
+        test.game(p);
+    }
+
+    @Test
+    void gameCol() {
+        test.gameCol(p);
+    }
+
+    @Test
+    void gameScreen() {
+        test.gameScreen(p);
+    }
+
+    @Test
+    void printColNum() {
+        test.printColNum(10);
+    }
+
+
+    @Test
+    void getOrders() {
+        System.out.println(test.getOrders(0));
+    }
+
+    @Test
+    void getColors() {
+        System.out.println(test.getColors("G"));
+    }
 
     @Test
     void start() {
-
-
+        test.start("A", "B");
     }
 
     @Test
-    void testStart() {
+    void place() {
+        test.place("A", "1", "Green");
     }
 
     @Test
-    void ask() {
+    void gameHead() {
+        test.gameHead("A", "B");
     }
 
     @Test
-    void check() throws IOException {
-        String s = new String("123456");
-
-        InputStream targetStream = new ByteArrayInputStream(s.getBytes());
-
-
+    void dig() {
+        test.dig();
     }
 
     @Test
-    void check1() throws IOException {
-        String s = new String("a33");
-
-        InputStream targetStream = new ByteArrayInputStream(s.getBytes());
-
+    void prompt() throws IOException {
+        String initialString = "123";
+        InputStream targetStream = new ByteArrayInputStream(initialString.getBytes());
+        test.prompt(targetStream);
     }
 
     @Test
-    void check2() throws IOException {
-        String s = new String("t2t");
-
-        InputStream targetStream = new ByteArrayInputStream(s.getBytes());
-
-
+    void hyphen() {
+        test.hyphen();
     }
 
     @Test
-    void boardCheck() {
+    void find() {
+        test.find();
     }
 
     @Test
-    void testStart1() {
+    void win() {
+        test.win("A");
     }
 
     @Test
-    void testAsk() {
+    void miss() {
+        test.miss();
     }
 
     @Test
-    void testCheck() {
+    void gameLine() {
+        test.gameLine(p, 10);
     }
 
     @Test
-    void testBoardCheck() {
-    }
-
-    @Test
-    void testCheck1() {
+    void printLine() {
+        HashMap<Integer, String> boardInfo = new HashMap<>();
+        Integer currRow = 0;
+        Integer colNum = 0;
+        test.printLine(boardInfo, currRow, colNum);
     }
 }

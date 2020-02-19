@@ -14,7 +14,7 @@ import static java.lang.Character.isLetter;
 
  */
 
-public class Instruction {
+public class Instruction implements UI{
     private HashMap<Integer, String> orders;
     private HashMap<String, String> colors;
     private Integer row = 20;
@@ -35,6 +35,51 @@ public class Instruction {
         colors.put("B", "Blue");
     }
 
+    @Override
+    public void pre(Player player) {
+
+    }
+
+    @Override
+    public void preCol(Player player) {
+
+    }
+
+    @Override
+    public void preScreen(Player player) {
+
+    }
+
+    @Override
+    public void game(Player player) {
+
+    }
+
+    @Override
+    public void gameCol(Player player) {
+
+    }
+
+    @Override
+    public void gameLine(Player player, Integer currRow) {
+
+    }
+
+    @Override
+    public void gameScreen(Player player) {
+
+    }
+
+    @Override
+    public void printColNum(Integer colNum) {
+
+    }
+
+    @Override
+    public void printLine(HashMap<Integer, String> boardInfo, Integer currRow, Integer colNum) {
+
+    }
+
     public String getOrders(Integer num) {
         return orders.get(num);
     }
@@ -43,7 +88,7 @@ public class Instruction {
         return colors.get(c);
     }
 
-    void start(String self, String rival) {
+    public void start(String self, String rival) {
         System.out.println(
                 "Player " + self + ", you are going place Sally’s stash on the board. Make sure Player " + rival + " isn’t\n" +
                         "looking! For each stack, type the coordinate of the upper left side of the stash,\n" +
@@ -109,7 +154,7 @@ public class Instruction {
     //win
     public void win(String player) {
         hyphen();
-        System.out.println(player + "win");
+        System.out.println(player + " win");
         hyphen();
     }
 

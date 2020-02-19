@@ -24,17 +24,6 @@ public class SelfBoard {
         colNum = colIn;
     }
 
-    public Integer getRowNum() {
-        return rowNum;
-    }
-
-    public Integer getColNum() {
-        return colNum;
-    }
-
-    public HashMap<String, Stack> getStackList() {
-        return stackList;
-    }
 
     //generate output board
     public HashMap<Integer, String> genBoard() {
@@ -68,21 +57,11 @@ public class SelfBoard {
         return b;
     }
 
-    public String getColor(Integer row, Integer col) {
-        String color = new String();
-        for (String k : this.getStackList().keySet()) {
-            Stack stack = this.getStackList().get(k);
-            if (stack.hasBlock(row, col)) {
-                color = stack.getColor();
-            }
-        }
-
-        return color;
-    }
 
     //boundary check
     public Boolean boundCheck(Stack stack) {
 
+        //loop through stack elements to check each block
         HashMap<Integer, Block> blockLists = stack.getElements();
         for (Integer k : blockLists.keySet()) {
             Integer bRow = blockLists.get(k).getRow();
@@ -175,5 +154,34 @@ public class SelfBoard {
         return res;
     }
 
+    /*
+        setter & getter
+
+     */
+
+    public Integer getRowNum() {
+        return rowNum;
+    }
+
+    public Integer getColNum() {
+        return colNum;
+    }
+
+    public HashMap<String, Stack> getStackList() {
+        return stackList;
+    }
+
+    //to get block color
+    public String getColor(Integer row, Integer col) {
+        String color = new String();
+        for (String k : this.getStackList().keySet()) {
+            Stack stack = this.getStackList().get(k);
+            if (stack.hasBlock(row, col)) {
+                color = stack.getColor();
+            }
+        }
+
+        return color;
+    }
 
 }

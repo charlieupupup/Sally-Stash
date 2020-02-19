@@ -19,6 +19,7 @@ class StackTest {
     @Test
     void hasBlock() {
         System.out.println(stack.hasBlock(0, 0));
+        stack.digBlock(0, 0);
         System.out.println(stack.hasBlock(0, 1));
         System.out.println(stack.hasBlock(1, 0));
         System.out.println(stack.hasBlock(2, 0));
@@ -26,6 +27,7 @@ class StackTest {
 
     @Test
     void digBlock() {
+        Stack stack = new Stack("R0", "R", "B3H", 4);
         stack.digBlock(0,0);
         System.out.println(stack.getHit());
         stack.digBlock(0, 1);

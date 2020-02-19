@@ -14,9 +14,54 @@ class JudgeTest {
     @Test
     void preFormat() {
         System.out.println(judge.preFormat(player, "A3h"));
+        System.out.println(judge.preFormat(player, "0"));
+        System.out.println(judge.preFormat(player, "333"));
     }
 
     @Test
     void gameFormat() {
+        System.out.println(judge.gameFormat(player, "Z33"));
+        System.out.println(judge.gameFormat(player, "a0"));
+        System.out.println(judge.gameFormat(player, "3a"));
+    }
+
+    @Test
+    void stackCheck() {
+        Stack s0 = new Stack("s0", "G", "A3H", 2);
+        System.out.println(judge.stackCheck(player, s0));
+
+        player.addStack(s0);
+        System.out.println(judge.stackCheck(player, s0));
+    }
+
+    @Test
+    void digCheck() {
+        System.out.println(judge.digCheck(player, 0, 0));
+        Stack s0 = new Stack("s0", "G", "A0H", 2);
+        player.addStack(s0);
+        System.out.println(judge.digCheck(player, 0, 0));
+
+    }
+
+    @Test
+    void digBlock() {
+        Player rival = new Player(20, 20, "B", "A");
+        judge.digBlock(player, rival, "a0");
+        Stack s = new Stack("g0", "G", "A0H", 3);
+        rival.addStack(s);
+        judge.digBlock(player, rival, "a0");
+    }
+
+    @Test
+    void win() {
+        System.out.println(judge.win(player));
+        Stack s = new Stack("g0", "G", "A0H", 3);
+        player.addStack(s);
+        System.out.println(judge.win(player));
+    }
+
+    @Test
+    void checkGame() {
+        judge.checkGame(player, "a0");
     }
 }

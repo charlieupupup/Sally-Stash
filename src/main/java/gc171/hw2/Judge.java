@@ -13,7 +13,7 @@ import static java.lang.Character.isLetter;
  */
 
 public class Judge {
-    private Instruction instruction = new Instruction();
+    public Instruction instruction = new Instruction();
     /*
         check input format
 
@@ -68,11 +68,13 @@ public class Judge {
 
     //judge whether player dig a block
     public Boolean digCheck(Player player, Integer row, Integer col) {
-        return player.getSelfBoard().digCheck(row, col);
+        return player.digCheck(row, col);
     }
 
     //dig process
     public void digBlock(Player self, Player rival, String input) {
+        //change input to upper case
+        input = input.toUpperCase();
         //convert input to coordinate
         int stackRow = input.charAt(0) - 'A';
         int stackCol = Character.getNumericValue(input.charAt(1));
@@ -99,5 +101,12 @@ public class Judge {
         return rival.loose();
     }
 
+    //check game border
+    public Boolean checkGame(Player player, String input) {
+        input = input.toUpperCase();
+        Integer row = input.charAt(0) - 'A';
+        Integer col = Character.getNumericValue(input.charAt(1));
+        return player.checkBound(row, col);
+    }
 
 }

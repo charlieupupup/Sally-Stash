@@ -47,6 +47,8 @@ public class Stack {
     //it through to init blocks
     private void initElements() {
         String state = this.getState();
+
+        //if vertical, then row++
         if (state.equals("V")) {
             for (Integer i = 0; i < this.blockNum; i++) {
                 Integer eleRow = this.getRow() + i;
@@ -56,6 +58,7 @@ public class Stack {
             }
         }
 
+        //if horizontal, col++
         if (state.equals("H")) {
             for (int i = 0; i < this.blockNum; i++) {
                 Integer eleRow = this.getRow();
@@ -80,7 +83,7 @@ public class Stack {
         return this.hit;
     }
 
-    //check dig
+    //check if input coordinate matech a block
     public Boolean hasBlock(Integer row, Integer col) {
         //loop through all blocks
         for (Integer e : elements.keySet()) {
@@ -100,17 +103,26 @@ public class Stack {
 
     //dig block
     public void digBlock(Integer row, Integer col) {
+        //loop through elements
         for (Integer e : elements.keySet()) {
             Block curr = elements.get(e);
             Integer blockRow = curr.getRow();
             Integer blockCol = curr.getCol();
 
+            //find it, then set hit
             if (row.equals(blockRow) && col.equals(blockCol)) {
                 curr.setHit(true);
             }
         }
 
     }
+
+    /*
+
+        setter & getter
+
+
+     */
 
     public HashMap<Integer, Block> getElements() {
         return elements;

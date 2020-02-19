@@ -1,12 +1,14 @@
 package gc171.hw2;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 /*
     the display for all screen
  */
 
-public class Display {
+class Display implements UI{
     /*
 
      pre display
@@ -18,11 +20,13 @@ public class Display {
     }
 
 
+    //pre game col num
     public void preCol(Player player) {
         printColNum(player.getSelfBoard().getColNum());
         System.out.println();
     }
 
+    //pre game screen
     public void preScreen(Player player) {
         preCol(player);
 
@@ -60,6 +64,7 @@ public class Display {
 
     }
 
+    //game num col
     public void gameCol(Player player) {
         printColNum(player.getSelfBoard().getColNum());
         for (int i = 0; i < player.getSelfBoard().getColNum(); i++) {
@@ -137,6 +142,61 @@ public class Display {
         Integer k = currRow * colNum + colNum - 1;
         String s = boardInfo.get(k);
         System.out.print(s + " " + rowName);
+
+    }
+
+    @Override
+    public String getOrders(Integer num) {
+        return null;
+    }
+
+    @Override
+    public String getColors(String c) {
+        return null;
+    }
+
+    @Override
+    public void start(String self, String rival) {
+
+    }
+
+    @Override
+    public void place(String name, String order, String color) {
+
+    }
+
+    @Override
+    public void gameHead(String self, String rival) {
+
+    }
+
+    @Override
+    public void dig() {
+
+    }
+
+    @Override
+    public String prompt(InputStream is) throws IOException {
+        return null;
+    }
+
+    @Override
+    public void hyphen() {
+
+    }
+
+    @Override
+    public void find() {
+
+    }
+
+    @Override
+    public void win(String player) {
+
+    }
+
+    @Override
+    public void miss() {
 
     }
 

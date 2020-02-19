@@ -28,6 +28,11 @@ public class Block {
         this.hit = false;
     }
 
+    /*
+        setter & getter
+
+     */
+
     public void setCol(Integer col) {
         this.col = col;
     }

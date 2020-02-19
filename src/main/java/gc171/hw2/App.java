@@ -118,7 +118,7 @@ public class App {
         while (true) {
             display.game(self);
             input = instruction.prompt(System.in);
-            if (judge.gameFormat(self, input)) {
+            if (judge.gameFormat(self, input) && judge.checkGame(self, input)) {
                 break;
             }
         }
@@ -128,5 +128,18 @@ public class App {
 
     }
 
+    /*
 
+        getter for test
+
+
+     */
+
+    public Player getPlayerA() {
+        return playerA;
+    }
+
+    public Player getPlayerB() {
+        return playerB;
+    }
 }

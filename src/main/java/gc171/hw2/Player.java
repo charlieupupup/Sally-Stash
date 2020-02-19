@@ -26,6 +26,44 @@ public class Player {
     }
 
 
+    //win
+    public Boolean loose() {
+        return this.selfBoard.loose();
+    }
+
+    //update self board
+    public void digBlock(Integer row, Integer col) {
+        selfBoard.digBlock(row, col);
+    }
+
+    public Boolean digCheck(Integer row, Integer col) {
+        return selfBoard.digCheck(row, col);
+    }
+
+
+    //place stack
+    public Boolean checkStack(Stack stack) {
+        return selfBoard.stackCheck(stack);
+    }
+
+    public void addStack(Stack stack) {
+        selfBoard.addStack(stack);
+    }
+
+    public Boolean checkBound(Integer row, Integer col) {
+        return rivalBoard.boundCheck(row, col);
+    }
+
+    /*
+        setter & getter
+
+     */
+
+    //return certain block color
+    public String getColor(Integer row, Integer col) {
+        return selfBoard.getColor(row, col);
+    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -38,35 +76,14 @@ public class Player {
         return rivalBoard;
     }
 
-    public SelfBoard getSelfBoard() {
-        return selfBoard;
-    }
-
-    //win
-    public Boolean loose() {
-        return this.selfBoard.loose();
-    }
-
-    //return certain block color
-    public String getColor(Integer row, Integer col) {
-        return selfBoard.getColor(row, col);
-    }
-    //update self board
-    public void digBlock(Integer row, Integer col) {
-        selfBoard.digBlock(row,col);
-    }
-
     //update rival board
     public void setRivalBoard(Integer row, Integer col, String status) {
         rivalBoard.setBoard(row, col, status);
     }
 
-    //place stack
-    public Boolean checkStack(Stack stack) {
-        return selfBoard.stackCheck(stack);
+
+    public SelfBoard getSelfBoard() {
+        return selfBoard;
     }
 
-    public void addStack(Stack stack) {
-        selfBoard.addStack(stack);
-    }
 }

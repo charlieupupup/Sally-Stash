@@ -1,35 +1,23 @@
 package gc171.hw2;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-    Integer row = 20;
-    Integer col = 10;
-    private Player playerA = new Player(row, col, "A", "B");;
-    private Player playerB = new Player(row, col, "B", "A");;
-    private Instruction instruction = new Instruction();
-    private Display display = new Display();
-    private Judge judge = new Judge();
-
+    App test = new App();
 
     @Test
     void setPlayer() {
 
-        display.pre(this.playerA);
-        display.pre(this.playerA);
-        display.game(this.playerA);
-        display.game(this.playerB);
-    }
+        test.setPlayer();
 
-    @Test
-    void gamePre() {
+
     }
 
 
-    @Test
-    void game() {
-    }
 }

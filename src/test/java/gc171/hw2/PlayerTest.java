@@ -12,11 +12,6 @@ class PlayerTest {
     Judge judge = new Judge();
 
     @Test
-    void getSelfBoard() {
-
-    }
-
-    @Test
     void checkStack() {
         Stack s0 = new Stack("g0", "G", "M0V", 3);
         System.out.println(judge.stackCheck(player, s0));
@@ -60,5 +55,64 @@ class PlayerTest {
 
     @Test
     void addStack() {
+        Stack stack = new Stack("G0", "G", "A0V", 2);
+        player.checkStack(stack);
+        if(player.checkStack(stack)) {
+            player.addStack(stack);
+        }
+    }
+
+    @Test
+    void getPlayerName() {
+        Player tmp = new Player(20, 10, "A", "B");
+        System.out.println(player.getPlayerName());
+    }
+
+    @Test
+    void getRivalBoard() {
+        System.out.println(player.getRivalName());
+        player.getSelfBoard();
+        player.getRivalBoard();
+
+        player.getColor(0, 0);
+    }
+
+
+    @Test
+    void loose() {
+        System.out.println(player.loose());
+
+        Stack stack = new Stack("G0", "G", "A0V", 2);
+        if(player.checkStack(stack)) {
+            player.addStack(stack);
+        }
+        System.out.println(player.loose());
+    }
+
+
+    @Test
+    void digBlock() {
+        Stack stack = new Stack("G0", "G", "A0V", 2);
+        player.checkStack(stack);
+        if(player.checkStack(stack)) {
+            player.addStack(stack);
+        }
+        if(player.digCheck(0, 0)) {
+            player.digBlock(0, 0);
+        }
+
+        System.out.println(player.digCheck(3,3));
+
+    }
+
+    @Test
+    void setRivalBoard() {
+        player.setRivalBoard(0, 0 , "X");
+    }
+
+
+    @Test
+    void checkBound() {
+        player.checkBound(0, 0);
     }
 }
