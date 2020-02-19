@@ -45,7 +45,7 @@ public class Stack {
 
     //according to the state & block num
     //it through to init blocks
-    private void initElements() {
+    public void initElements() {
         String state = this.getState();
 
         //if vertical, then row++
@@ -161,5 +161,160 @@ public class Stack {
         return state;
     }
 
+    public void setStack(Integer row, Integer col) {
+        this.row = row;
+        this.col = col;
+        initElements();
+    }
+
 }
 
+/*
+
+    super stack extend from stack
+
+    override the init method
+
+
+ */
+
+class RedStack extends Stack {
+
+    public RedStack(String stackName, String stackColor, String insn, Integer blockNum) {
+        super(stackName, stackColor, insn, blockNum);
+    }
+
+    @Override
+    public void initElements() {
+        //if up
+        if (getState().equals("U")) {
+            Block base = new Block(this.getColor(), getRow(), getCol());
+            setElements(0, base);
+
+            for (Integer i = 1; i < 4; i++) {
+                Integer eleRow = this.getRow() + 1;
+                Integer eleCol = this.getCol() + i - 2;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+
+        //if right
+        if (getState().equals("R")) {
+            Block b3 = new Block(this.getColor(), getRow() + 1, getCol() + 1);
+            setElements(3, b3);
+
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+
+        if (getState().equals("D")) {
+            Block b3 = new Block(this.getColor(), getRow() + 1, getCol() + 1);
+            setElements(3, b3);
+
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+
+        if (getState().equals("L")) {
+            Block b3 = new Block(this.getColor(), getRow() - 1, getCol() - 1);
+            setElements(3, b3);
+
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+    }
+}
+
+/*
+
+    Blue crazy stacks, extend from stack
+
+    override the init method
+
+
+ */
+
+class BlueStack extends Stack {
+
+    public BlueStack(String stackName, String stackColor, String insn, Integer blockNum) {
+        super(stackName, stackColor, insn, blockNum);
+    }
+
+    @Override
+    public void initElements() {
+        //if up
+        if (getState().equals("U")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() + i - 1;
+                Integer eleCol = this.getCol() + 1;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+
+        //if right
+        if (getState().equals("R")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() - 1;
+                Integer eleCol = this.getCol() + i - 1;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+
+        if (getState().equals("D")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() + i - 1;
+                Integer eleCol = this.getCol() - 1;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+
+        if (getState().equals("L")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() + 1;
+                Integer eleCol = this.getCol() + i - 1;
+                Block tmp = new Block(this.getColor(), eleRow, eleCol);
+                setElements(i, tmp);
+            }
+        }
+    }
+}
