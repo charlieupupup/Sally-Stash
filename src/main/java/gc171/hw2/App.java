@@ -23,8 +23,9 @@ public class App {
     private Player playerA;
     private Player playerB;
     private Instruction instruction = new Instruction();
-    private Display display = new Display();
     private Judge judge = new Judge();
+    private PreGame preGame = new PreGame();
+    private Game game = new Game();
 
     public static void main(String[] args) throws IOException {
         App main = new App();
@@ -33,18 +34,18 @@ public class App {
         main.setPlayer();
 
         //pre game
-        main.gamePre(main.playerA);
-        main.gamePre(main.playerB);
+       main.preGame.prepareGame(main.playerA);
+       main.preGame.prepareGame(main.playerB);
 
         //game
         while (true) {
-            main.game(main.playerA, main.playerB);
+            main.game.exeGame(main.playerA, main.playerB);
             if (main.judge.win(main.playerB)) {
                 main.instruction.win(main.playerA.getPlayerName());
                 break;
             }
 
-            main.game(main.playerB, main.playerA);
+            main.game.exeGame(main.playerB, main.playerA);
             if (main.judge.win(main.playerA)) {
                 main.instruction.win(main.playerB.getPlayerName());
                 break;
@@ -63,70 +64,6 @@ public class App {
         playerB = new Player(row, col, "B", "A");
     }
 
-    //game pre
-    public void gamePre(Player self) throws IOException {
-        instruction.start(self.getPlayerName(), self.getRivalName());
-        //green stack
-        initStack(self, "G", 2, 2);
-        //purple
-        initStack(self, "P", 3, 3);
-        //red
-        initStack(self, "R", 4, 3);
-        //blue
-        initStack(self, "B", 6, 2);
-    }
-
-    //init stack
-    public void initStack(Player self, String color, Integer blockNum, Integer stackNum) throws IOException {
-        for (int i = 0; i < stackNum; i++) {
-            //display
-            display.pre(self);
-
-            //read from input
-            String input;
-            while (true) {
-                instruction.place(self.getPlayerName(), instruction.getOrders(i), instruction.getColors(color));
-                input = instruction.prompt(System.in);
-
-                //check the format
-                if (judge.preFormat(self, input)) {
-                    //check the stack fit or not
-                    String stackName = color + i;
-                    Stack tmp = new Stack(stackName, color, input, blockNum);
-                    if (judge.stackCheck(self, tmp)) {
-                        self.addStack(tmp);
-                        break;
-                    }
-                    else {
-                        System.out.println("Invalid input");
-                    }
-
-                }
-            }
-
-        }
-
-    }
-
-
-    //game
-    public void game(Player self, Player rival) throws IOException {
-        instruction.dig();
-        String input;
-
-        //check input format
-        while (true) {
-            display.game(self);
-            input = instruction.prompt(System.in);
-            if (judge.gameFormat(self, input) && judge.checkGame(self, input)) {
-                break;
-            }
-        }
-
-        //check if hit or not
-        judge.digBlock(self, rival, input);
-
-    }
 
     /*
 
