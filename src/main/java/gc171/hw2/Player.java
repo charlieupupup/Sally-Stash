@@ -97,4 +97,10 @@ public class Player {
     public Integer getCol() {
         return col;
     }
+
+    //return stack name according to coordinate
+    //must have validate coordinate
+    public Stack getStack(Integer row, Integer col) {
+        return selfBoard.getStack(row, col);
+    }
 }

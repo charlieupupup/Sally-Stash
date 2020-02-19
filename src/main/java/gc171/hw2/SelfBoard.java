@@ -114,6 +114,10 @@ public class SelfBoard {
         stackList.put(stack.getName(), stack);
     }
 
+    public void rmStack(Stack stack) {
+        stackList.remove(stack.getName());
+    }
+
     //dig check
     public Boolean digCheck(Integer bRow, Integer bCol) {
         //should check coordinate format somewhere else
@@ -182,5 +186,19 @@ public class SelfBoard {
         }
         return color;
     }
+
+    //return stack according to coordinate
+    //must have validate the coordinate before calling this function
+    public Stack getStack(Integer row, Integer col) {
+        Stack err = new Stack("err", "err", "A0H", 2);
+        for (String k : this.getStackList().keySet()) {
+            Stack stack = this.getStackList().get(k);
+            if (stack.hasBlock(row, col)) {
+                return stack;
+            }
+        }
+        return err;
+    }
+
 
 }
