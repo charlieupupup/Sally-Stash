@@ -180,7 +180,6 @@ public class SelfBoard {
                 color = stack.getColor();
             }
         }
-
         return color;
     }
 

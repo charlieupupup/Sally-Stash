@@ -16,6 +16,8 @@ public class Player {
     private SelfBoard selfBoard;
     //tree
     private RivalBoard rivalBoard;
+    private Integer row;
+    private Integer col;
 
     //guess inform
     public Player(Integer row, Integer col, String playerName, String rivalName) {
@@ -23,6 +25,8 @@ public class Player {
         this.rivalBoard = new RivalBoard(row, col);
         this.playerName = playerName;
         this.rivalName = rivalName;
+        this.row = row;
+        this.col = col;
     }
 
 
@@ -86,4 +90,11 @@ public class Player {
         return selfBoard;
     }
 
+    public Integer getRow() {
+        return row;
+    }
+
+    public Integer getCol() {
+        return col;
+    }
 }
