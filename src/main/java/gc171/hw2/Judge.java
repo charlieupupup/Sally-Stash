@@ -14,6 +14,7 @@ import static java.lang.Character.isLetter;
 
 public class Judge {
     public Instruction instruction = new Instruction();
+
     /*
         check input format
 
@@ -21,40 +22,49 @@ public class Judge {
     //check pre game input
     public Boolean preFormat(Player player, String input) {
         if (input.length() != 3) {
-            System.out.println("Invalid input");
             return false;
         }
-
-        input = input.toUpperCase();
 
         char c0 = input.charAt(0);
         char c1 = input.charAt(1);
         char c2 = input.charAt(2);
 
-        if (!isLetter(c0) || !isDigit(c1) || !isLetter(c2) || (c2 != 'V' && c2 != 'H')) {
-            System.out.println(("Invalid input"));
+        if (!isLetter(c0) || !isDigit(c1) || !isLetter(c2)) {
             return false;
         }
 
         return true;
     }
 
+    //position check
+    public Boolean normalStackStateCheck(char c) {
+        return c == 'V' || c == 'H';
+    }
+
+    public Boolean crazyStackStateCheck(char c) {
+        return c == 'U' || c == 'D' || c == 'L' || c == 'R';
+    }
+
     //check game input format
-    public Boolean gameFormat(Player player, String input) {
+    public Boolean gameFormat(String input) {
+        //input only 1 letter
+        if (input.length() != 1 || !isLetter(input.charAt(0))) {
+            return false;
+        }
+        char c = input.charAt(0);
+        return c == 'D' || c == 'M' || c == 'S';
+
+    }
+
+    public Boolean coordinateFormat(Player player, String input) {
         if (input.length() != 2) {
-            System.out.println("Invalid input");
             return false;
         }
 
         char c0 = input.charAt(0);
         char c1 = input.charAt(1);
 
-        if (!isLetter(c0) || !isDigit(c1)) {
-            System.out.println(("Invalid input"));
-            return false;
-        }
-
-        return true;
+        return isLetter(c0) && isDigit(c1);
     }
 
     /*

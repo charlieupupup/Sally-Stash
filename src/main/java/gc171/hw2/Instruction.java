@@ -14,7 +14,7 @@ import static java.lang.Character.isLetter;
 
  */
 
-public class Instruction implements UI{
+public class Instruction implements UI {
     private HashMap<Integer, String> orders;
     private HashMap<String, String> colors;
     private Integer row = 20;
@@ -96,8 +96,8 @@ public class Instruction implements UI{
                         "place a stack horizontally starting at M4 and going to the right. You have\n" +
                         "2 Green stacks that are 1x2\n" +
                         "3 Purple stacks that are 1x3\n" +
-                        "3 Red stacks that are 1x4\n" +
-                        "2 Blue stacks that are 1x6");
+                        "3 Red stacks that are super\n" +
+                        "3 Blue stacks that are crazy");
     }
 
     //ask for input
@@ -125,6 +125,15 @@ public class Instruction implements UI{
     //ask for dig
     public void dig() {
         System.out.println("Input your dig");
+    }
+
+    //ask for user input
+    public void gameInfo(String playerName, Integer mvNum, Integer sonarNum) {
+        System.out.println(" Possible actions for Player " + playerName + ": \n" +
+                "D Dig in a square\n" +
+                "M Move a stack to another square (" + mvNum + " remaining)\n" +
+                "S Sonar scan (" + sonarNum + " remaining)\n" +
+                "Player A, what would you like to do? ");
     }
 
     //read from input

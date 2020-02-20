@@ -83,7 +83,7 @@ public class Stack {
         return this.hit;
     }
 
-    //check if input coordinate matech a block
+    //check if input coordinate match a block
     public Boolean hasBlock(Integer row, Integer col) {
         //loop through all blocks
         for (Integer e : elements.keySet()) {

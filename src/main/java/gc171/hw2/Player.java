@@ -19,7 +19,11 @@ public class Player {
     private Integer row;
     private Integer col;
 
-    //guess inform
+    //special moves
+    private Integer mvNum;
+    private Integer sonarNum;
+
+    //player inform
     public Player(Integer row, Integer col, String playerName, String rivalName) {
         this.selfBoard = new SelfBoard(row, col);
         this.rivalBoard = new RivalBoard(row, col);
@@ -27,6 +31,9 @@ public class Player {
         this.rivalName = rivalName;
         this.row = row;
         this.col = col;
+
+        mvNum = 3;
+        sonarNum = 3;
     }
 
 
@@ -102,5 +109,21 @@ public class Player {
     //must have validate coordinate
     public Stack getStack(Integer row, Integer col) {
         return selfBoard.getStack(row, col);
+    }
+
+    public Integer getMvNum() {
+        return mvNum;
+    }
+
+    public Integer getSonarNum() {
+        return sonarNum;
+    }
+
+    public void setMvNum(Integer mvNum) {
+        this.mvNum = mvNum;
+    }
+
+    public void setSonarNum(Integer sonarNum) {
+        this.sonarNum = sonarNum;
     }
 }

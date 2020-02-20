@@ -18,27 +18,24 @@ public class Scanner {
     private ArrayList<ScanBlock> scanBlocksList;
 
     //central coordinate
-    private Integer row;
-    private Integer col;
+    private Integer cenRow;
+    private Integer cenCol;
 
     //constructor
-    public Scanner(Integer row, Integer col) {
+    public Scanner(Integer cenRow, Integer cenCol) {
         scanResults = new HashMap<>();
         scanResults.put("G", 0);
         scanResults.put("P", 0);
         scanResults.put("R", 0);
         scanResults.put("B", 0);
         scanBlocksList = new ArrayList<>();
-        this.row = row;
-        this.col = col;
+        this.cenRow = cenRow;
+        this.cenCol = cenCol;
     }
 
     //boolean method to check is valid or not
     public Boolean checkBound(Player rival, Integer row, Integer col) {
-        if (row < 0 || col < 0 || row >= rival.getRow() || row >= rival.getCol()) {
-            return false;
-        }
-        return true;
+        return row >= 0 && col >= 0 && row < rival.getRow() && row < rival.getCol();
     }
 
     //whole scan process
@@ -60,8 +57,8 @@ public class Scanner {
                     continue;
                 }
 
-                Integer tmpRow = row + r;
-                Integer tmpCol = col + c;
+                Integer tmpRow = cenRow + r;
+                Integer tmpCol = cenCol + c;
                 //bound check
                 if (checkBound(rival, tmpRow, tmpCol)) {
                     ScanBlock tmp = new ScanBlock(tmpRow, tmpCol);
