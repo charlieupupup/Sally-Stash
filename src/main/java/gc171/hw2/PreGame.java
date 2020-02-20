@@ -41,37 +41,56 @@ public class PreGame {
                 input = input.toUpperCase();
 
                 //check the format
-                if (judge.preFormat(self, input)) {
-                    if (color.equals("G") || color.equals("P")) {
-                        if (normalStack(self, color, i, input, blockNum)) {
-                            break;
-                        } else {
-                            System.out.println("Invalid input");
-                        }
-                    } else if (color.equals("R")) {
-                        if (redStack(self, color, i, input, blockNum)) {
-                            break;
-
-                        } else {
-                            System.out.println("Invalid input");
-                        }
-                    } else if (color.equals("B")) {
-
-                        if (blueStack(self, color, i, input, blockNum)) {
-                            break;
-                        } else {
-                            System.out.println("Invalid input");
-                        }
-                    }
+                if (judge.preFormat(self, input) && format(self, input, color, i, blockNum)) {
+                    break;
                 } else {
-                    System.out.println("Invalid input");
+                    System.out.println("invalid input");
                 }
 
             }
+
+            //the format is valid
+            //init correspond stack according to colors
+            if (color.equals("G") || color.equals("P")) {
+                String stackName = color + i;
+                Stack tmp = new Stack(stackName, color, input, blockNum);
+                self.addStack(tmp);
+            }
+
+            //if red
+            if (color.equals("R")) {
+                String stackName = color + i;
+                RedStack tmp = new RedStack(stackName, color, input, blockNum);
+                self.addStack(tmp);
+            }
+
+            //if blue
+            if (color.equals("B")) {
+                String stackName = color + i;
+                BlueStack tmp = new BlueStack(stackName, color, input, blockNum);
+                self.addStack(tmp);
+            }
+
         }
 
     }
 
+    //check pre game input
+    public Boolean format(Player self, String input, String color, Integer i, Integer blockNum) {
+        if (judge.preFormat(self, input)) {
+            switch (color) {
+                case "G":
+                case "P":
+                    return normalStack(self, color, i, input, blockNum);
+                case "R":
+                    return redStack(self, color, i, input, blockNum);
+                case "B":
+                    return blueStack(self, color, i, input, blockNum);
+            }
+        }
+
+        return false;
+    }
 
     //init red stack
     private Boolean redStack(Player self, String color, Integer i, String input, Integer blockNum) {
@@ -81,12 +100,7 @@ public class PreGame {
         //check the stack fit or not
         String stackName = color + i;
         RedStack tmp = new RedStack(stackName, color, input, blockNum);
-        if (judge.stackCheck(self, tmp)) {
-            self.addStack(tmp);
-            return true;
-        }
-
-        return false;
+        return judge.stackCheck(self, tmp);
     }
 
     //init blue stack
@@ -97,12 +111,7 @@ public class PreGame {
         //check the stack fit or not
         String stackName = color + i;
         BlueStack tmp = new BlueStack(stackName, color, input, blockNum);
-        if (judge.stackCheck(self, tmp)) {
-            self.addStack(tmp);
-            return true;
-        }
-
-        return false;
+        return judge.stackCheck(self, tmp);
     }
 
     //init normal stack
@@ -113,12 +122,7 @@ public class PreGame {
         //check the stack fit or not
         String stackName = color + i;
         Stack tmp = new Stack(stackName, color, input, blockNum);
-        if (judge.stackCheck(self, tmp)) {
-            self.addStack(tmp);
-            return true;
-        }
-
-        return false;
+        return judge.stackCheck(self, tmp);
     }
 
 

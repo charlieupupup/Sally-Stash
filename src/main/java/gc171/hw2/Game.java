@@ -123,7 +123,7 @@ public class Game {
         //read the stack location
         String src = instruction.prompt(System.in);
 
-        //check the format and enough special move
+        //check the coordinate format
         if (judge.coordinateFormat(self, src)) {
             //check if there is a stack
             char c0 = src.charAt(0);
@@ -136,16 +136,27 @@ public class Game {
             //check bound
             if (movement.validateSrc(self)) {
                 //read the target location
-                System.out.println("input target location");
+                System.out.println("input target location & orientation");
                 String tar = instruction.prompt(System.in);
 
+                //check the input format
+                if (!judge.preFormat(self, tar)) {
+                    return false;
+                }
+
+
+                //get state
                 c0 = tar.charAt(0);
                 c1 = tar.charAt(1);
+                char c2 = tar.charAt(2);
                 //set target
                 Integer tarRow = c0 - 'A';
                 Integer tarCol = Character.getNumericValue(c1);
-                movement.setTarget(tarRow, tarCol);
-                if (movement.validateSrc(self)) {
+                String tarState = String.valueOf(c2);
+                movement.setTarget(tarRow, tarCol, tarState);
+
+                //validate the target
+                if (movement.validateTar(self)) {
                     movement.mvStack(self);
 
                     //minus special move

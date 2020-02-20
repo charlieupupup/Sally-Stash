@@ -5,6 +5,7 @@ public class Movement {
     private Integer currCol;
     private Integer targetRow;
     private Integer targetCol;
+    private String targetState;
     private Stack stack;
 
     public Movement(Integer currRow, Integer currCol) {
@@ -12,9 +13,30 @@ public class Movement {
         this.currCol = currCol;
     }
 
-    public void setTarget(Integer targetRow, Integer targetCol) {
+
+     /*
+
+        getter & setter
+
+
+     */
+
+    public Integer getTargetRow() {
+        return targetRow;
+    }
+
+    public Integer getTargetCol() {
+        return targetCol;
+    }
+
+    public String getTargetState() {
+        return targetState;
+    }
+
+    public void setTarget(Integer targetRow, Integer targetCol, String targetState) {
         this.targetRow = targetRow;
         this.targetCol = targetCol;
+        this.targetState = targetState;
     }
 
     /*
@@ -43,10 +65,7 @@ public class Movement {
 
     //boolean method to check input coordinate is valid or not
     public Boolean checkBound(Player self) {
-        if (currRow < 0 || currCol < 0 || currRow >= self.getRow() || currCol >= self.getCol()) {
-            return false;
-        }
-        return true;
+        return currRow >= 0 && currCol >= 0 && currRow < self.getRow() && currCol < self.getCol();
     }
 
     //boolean method to check if input location has a stack or not
@@ -61,24 +80,23 @@ public class Movement {
 
     //conflict check, check new place conflict or not bound check
     public Boolean conflictCheck(Player self) {
-        Boolean res = false;
         //record stack curr location
         Integer currRow = stack.getRow();
         Integer currCol = stack.getCol();
-
-        //set stack location
-        stack.setRow(targetRow);
-        stack.setCol(targetCol);
+        String currState = stack.getState();
 
         //call self board conflict check
         SelfBoard curr = self.getSelfBoard();
         curr.rmStack(stack);
 
-        res = curr.conflictCheck(stack);
+
+        //set stack location
+        stack.setStack(targetRow, targetCol, targetState);
+
+        Boolean res = curr.conflictCheck(stack);
 
         //restore the stack
-        stack.setRow(currRow);
-        stack.setCol(currCol);
+        stack.setStack(currRow, currCol, currState);
         curr.addStack(stack);
 
         return res;
@@ -99,11 +117,12 @@ public class Movement {
 
 
         //set stack location
-        stack.setRow(targetRow);
-        stack.setCol(targetCol);
+        stack.setStack(getTargetRow(), getTargetCol(), getTargetState());
 
 
         curr.addStack(stack);
 
     }
+
+
 }

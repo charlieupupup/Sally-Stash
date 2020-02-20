@@ -19,7 +19,8 @@ public class Judge {
         check input format
 
      */
-    //check pre game input
+
+    //check pre game input format
     public Boolean preFormat(Player player, String input) {
         if (input.length() != 3) {
             return false;
@@ -29,11 +30,7 @@ public class Judge {
         char c1 = input.charAt(1);
         char c2 = input.charAt(2);
 
-        if (!isLetter(c0) || !isDigit(c1) || !isLetter(c2)) {
-            return false;
-        }
-
-        return true;
+        return isLetter(c0) && isDigit(c1) && isLetter(c2);
     }
 
     //position check

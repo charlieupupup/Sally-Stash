@@ -69,6 +69,40 @@ public class Stack {
         }
     }
 
+
+    //refresh block location
+    public void setElements() {
+        String state = this.getState();
+
+        //if vertical, then row++
+        if (state.equals("V")) {
+            for (Integer i = 0; i < this.blockNum; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+
+                //recalculate
+                Block curr = elements.get(i);
+                curr.setRow(eleRow);
+                curr.setCol(eleCol);
+            }
+        }
+
+        //if horizontal, col++
+        if (state.equals("H")) {
+            for (int i = 0; i < this.blockNum; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+
+                //recalculate
+                Block curr = elements.get(i);
+                curr.setRow(eleRow);
+                curr.setCol(eleCol);
+
+            }
+        }
+    }
+
+
     //check if whole stack hit or not
     public Boolean getHit() {
         Boolean tmp = true;
@@ -161,10 +195,15 @@ public class Stack {
         return state;
     }
 
-    public void setStack(Integer row, Integer col) {
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setStack(Integer row, Integer col, String state) {
         this.row = row;
         this.col = col;
-        initElements();
+        this.state = state;
+        setElements();
     }
 
 }
@@ -183,6 +222,84 @@ class RedStack extends Stack {
     public RedStack(String stackName, String stackColor, String insn, Integer blockNum) {
         super(stackName, stackColor, insn, blockNum);
     }
+
+    @Override
+    public void setElements() {
+        //if up
+        if (getState().equals("U")) {
+            //get block0
+            Block b0 = getElements().get(0);
+            b0.setRow(getRow());
+            b0.setCol(getCol());
+
+
+            for (Integer i = 1; i < 4; i++) {
+
+                Integer eleRow = this.getRow() + 1;
+                Integer eleCol = this.getCol() + i - 2;
+
+                //refresh block coordinate
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
+        //if right
+        if (getState().equals("R")) {
+
+            //get block3
+            Block b3 = getElements().get(3);
+            b3.setRow(getRow() + 1);
+            b3.setCol(getCol() + 1);
+
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+
+                //refresh block coordinate
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
+        if (getState().equals("D")) {
+            //get block3
+            Block b3 = getElements().get(3);
+            b3.setRow(getRow() + 1);
+            b3.setCol(getCol() + 1);
+
+
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+
+                //refresh block coordinate
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
+        if (getState().equals("L")) {
+            //get block3
+            Block b3 = getElements().get(3);
+            b3.setRow(getRow() + 1);
+            b3.setCol(getCol() - 1);
+
+
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+                //refresh block coordinate
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+    }
+
 
     @Override
     public void initElements() {
@@ -251,6 +368,97 @@ class BlueStack extends Stack {
 
     public BlueStack(String stackName, String stackColor, String insn, Integer blockNum) {
         super(stackName, stackColor, insn, blockNum);
+    }
+
+    @Override
+    public void setElements() {
+        //if up
+        if (getState().equals("U")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() + i - 1;
+                Integer eleCol = this.getCol() + 1;
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
+        //if right
+        if (getState().equals("R")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() - 1;
+                Integer eleCol = this.getCol() + i - 1;
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
+        if (getState().equals("D")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow() + i;
+                Integer eleCol = this.getCol();
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() + i - 1;
+                Integer eleCol = this.getCol() - 1;
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
+        if (getState().equals("L")) {
+            for (Integer i = 0; i < 3; i++) {
+                Integer eleRow = this.getRow();
+                Integer eleCol = this.getCol() + i;
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+            for (Integer i = 3; i < 6; i++) {
+                Integer eleRow = this.getRow() + 1;
+                Integer eleCol = this.getCol() + i - 1;
+
+                //refresh block
+                Block tmp = getElements().get(i);
+                tmp.setRow(eleRow);
+                tmp.setCol(eleCol);
+            }
+        }
+
     }
 
     @Override
