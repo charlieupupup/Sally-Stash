@@ -31,6 +31,7 @@ public class Game {
 
             //normal dig
             if (input.equals("D")) {
+                System.out.println("input dig location");
                 if (dig(self, rival)) {
                     break;
                 } else {
@@ -41,6 +42,7 @@ public class Game {
             //special moves
             //sonar scan
             if (input.equals("S")) {
+                System.out.println("input sonar location");
                 if (son(self, rival)) {
                     break;
                 } else {
@@ -51,6 +53,7 @@ public class Game {
 
             //move stack
             if (input.equals("M")) {
+                System.out.println("please select stack");
                 if (mov(self)) {
                     break;
                 }
@@ -95,8 +98,8 @@ public class Game {
             Integer cenCol = Character.getNumericValue(c1);
             Scanner scanner = new Scanner(cenRow, cenCol);
 
-            //validate player has enough sonar num the input coordinate
-            if (self.getSonarNum() > 0 && scanner.checkBound(rival, cenRow, cenCol)) {
+            //validate the input coordinate
+            if (scanner.checkBound(rival, cenRow, cenCol)) {
                 scanner.scan(rival);
 
                 //reduce player scan num
@@ -133,6 +136,7 @@ public class Game {
             //check bound
             if (movement.validateSrc(self)) {
                 //read the target location
+                System.out.println("input target location");
                 String tar = instruction.prompt(System.in);
 
                 c0 = tar.charAt(0);

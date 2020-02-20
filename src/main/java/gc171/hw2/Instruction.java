@@ -90,10 +90,11 @@ public class Instruction implements UI {
 
     public void start(String self, String rival) {
         System.out.println(
-                "Player " + self + ", you are going place Sally’s stash on the board. Make sure Player " + rival + " isn’t\n" +
-                        "looking! For each stack, type the coordinate of the upper left side of the stash,\n" +
+                "Player " + self + ", you are going place Sally’s stash ver.2 on the board. Make sure Player " + rival + " isn’t\n" +
+                        "looking! For green & purple stack, type the coordinate of the upper left side of the stash,\n" +
                         "followed by either H (for horizontal) or V (for vertical). For example, M4H would \n" +
-                        "place a stack horizontally starting at M4 and going to the right. You have\n" +
+                        "place a stack horizontally starting at M4 and going to the right. for red & blue, use U D L R to indicate\n" +
+                        "You have\n" +
                         "2 Green stacks that are 1x2\n" +
                         "3 Purple stacks that are 1x3\n" +
                         "3 Red stacks that are super\n" +
@@ -133,7 +134,7 @@ public class Instruction implements UI {
                 "D Dig in a square\n" +
                 "M Move a stack to another square (" + mvNum + " remaining)\n" +
                 "S Sonar scan (" + sonarNum + " remaining)\n" +
-                "Player A, what would you like to do? ");
+                "Player " + playerName+", what would you like to do? ");
     }
 
     //read from input

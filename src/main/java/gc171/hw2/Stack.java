@@ -225,7 +225,7 @@ class RedStack extends Stack {
         }
 
         if (getState().equals("L")) {
-            Block b3 = new Block(this.getColor(), getRow() - 1, getCol() - 1);
+            Block b3 = new Block(this.getColor(), getRow() + 1, getCol() - 1);
             setElements(3, b3);
 
             for (Integer i = 0; i < 3; i++) {

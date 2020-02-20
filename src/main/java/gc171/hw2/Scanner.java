@@ -35,7 +35,7 @@ public class Scanner {
 
     //boolean method to check is valid or not
     public Boolean checkBound(Player rival, Integer row, Integer col) {
-        return row >= 0 && col >= 0 && row < rival.getRow() && row < rival.getCol();
+        return row >= 0 && col >= 0 && row < rival.getRow() && col < rival.getCol();
     }
 
     //whole scan process
