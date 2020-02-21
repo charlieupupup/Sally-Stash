@@ -264,6 +264,7 @@ class RedStack extends Stack {
             }
         }
 
+        //if down
         if (getState().equals("D")) {
             //get block3
             Block b3 = getElements().get(3);
@@ -282,6 +283,7 @@ class RedStack extends Stack {
             }
         }
 
+        //if left
         if (getState().equals("L")) {
             //get block3
             Block b3 = getElements().get(3);
@@ -458,6 +460,7 @@ class BlueStack extends Stack {
                 tmp.setCol(eleCol);
             }
         }
+
 
     }
 
