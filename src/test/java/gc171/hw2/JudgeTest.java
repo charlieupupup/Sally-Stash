@@ -20,6 +20,13 @@ class JudgeTest {
 
     @Test
     void gameFormat() {
+        judge.gameFormat("0");
+        judge.gameFormat("Aa");
+        judge.gameFormat("d");
+        judge.coordinateFormat(player, "a");
+        judge.coordinateFormat(player, "a0");
+        Judge tmp = new Judge();
+
 
     }
 

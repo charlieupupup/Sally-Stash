@@ -114,5 +114,11 @@ class PlayerTest {
     @Test
     void checkBound() {
         player.checkBound(0, 0);
+        player.getStack(0, 0);
+        player.getMvNum();
+        player.getSonarNum();
+        player.setMvNum(0);
+        player.setSonarNum(0);
+
     }
 }

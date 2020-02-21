@@ -1,5 +1,6 @@
 package gc171.hw2;
 
+import org.checkerframework.common.reflection.qual.NewInstance;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -73,6 +74,8 @@ class StackTest {
 
         }
 
+
+
     }
 
     @Test
@@ -95,6 +98,58 @@ class StackTest {
     @Test
     void setRow() {
         stack.setCol(3);
+    }
+
+
+    @Test
+    void setStack() {
+        Stack s0 = new Stack("G0", "G", "A0V", 3);
+        s0.setStack(5, 5, "H");
+        s0.setElements();
+        Stack s1 = new Stack("G0", "G", "A0H", 3);
+        s1.setStack(5, 5, "V");
+        s1.setElements();
+
+        //blue
+        BlueStack bU = new BlueStack("BU", "B", "A0U", 6);
+        BlueStack bD = new BlueStack("BD", "B", "A0D", 6);
+        BlueStack bL = new BlueStack("BL", "B", "A0L", 6);
+        BlueStack bR = new BlueStack("BR", "B", "A0R", 6);
+
+        bU.setStack(5,5, "U");
+        bU.setElements();
+
+        bD.setStack(5,5, "D");
+        bD.setElements();
+
+        bL.setStack(5,5, "L");
+        bL.setElements();
+
+        bR.setStack(5,5, "R");
+        bR.setElements();
+
+
+
+        //red
+
+        RedStack RU = new RedStack("RU", "R", "A0U", 4);
+        RedStack RD = new RedStack("RD", "R", "A0D", 4);
+        RedStack RL = new RedStack("RL", "R", "A0L", 4);
+        RedStack RR = new RedStack("RR", "R", "A0R", 4);
+
+        RD.setStack(5, 5,"D");
+        RD.setElements();
+
+        RU.setStack(5, 5,"U");
+        RU.setElements();
+
+        RL.setStack(5, 5,"L");
+        RL.setElements();
+
+
+        RR.setStack(5, 5,"R");
+        RR.setElements();
+
     }
 
 

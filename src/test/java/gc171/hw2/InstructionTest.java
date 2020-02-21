@@ -117,5 +117,8 @@ class InstructionTest {
         Integer currRow = 0;
         Integer colNum = 0;
         test.printLine(boardInfo, currRow, colNum);
+
+        test.gameInfo("A", 3, 3);
+        test.role("A");
     }
 }

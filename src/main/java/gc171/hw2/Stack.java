@@ -195,10 +195,6 @@ public class Stack {
         return state;
     }
 
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public void setStack(Integer row, Integer col, String state) {
         this.row = row;
         this.col = col;
@@ -244,7 +240,6 @@ class RedStack extends Stack {
                 tmp.setCol(eleCol);
             }
         }
-
         //if right
         if (getState().equals("R")) {
 

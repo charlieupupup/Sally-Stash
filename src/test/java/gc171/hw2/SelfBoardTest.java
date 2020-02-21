@@ -12,6 +12,7 @@ class SelfBoardTest {
         Stack stack = new Stack("G0", "G", "A0H", 2);
         selfBoard.addStack(stack);
         System.out.println(selfBoard.getColor(0, 0));
+        selfBoard.getStack(0, 0);
     }
 
     @Test
@@ -22,6 +23,7 @@ class SelfBoardTest {
 
         Stack s1 = new Stack("g1", "G", "M3V", 3);
         System.out.println(selfBoard.stackCheck(s1));
+        selfBoard.rmStack(s1);
     }
 
     @Test

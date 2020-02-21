@@ -83,5 +83,11 @@ public class App {
 
     }
 
+    public void setaIsHuman(Boolean aIsHuman) {
+        this.aIsHuman = aIsHuman;
+    }
 
+    public void setbIsHuman(Boolean bIsHuman) {
+        this.bIsHuman = bIsHuman;
+    }
 }

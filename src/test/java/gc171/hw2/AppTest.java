@@ -9,10 +9,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-    App test = new App();
-
     @Test
     void setPlayer() {
+
+        App test = new App();
+
+        test.setaIsHuman(false);
+        test.setbIsHuman(false);
 
         test.setPlayer();
 
