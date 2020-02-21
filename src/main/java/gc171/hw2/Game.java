@@ -15,6 +15,17 @@ public class Game {
 
     //game
     public void exeGame(Player self, Player rival) throws IOException {
+        if (self instanceof Bot) {
+            ((Bot) self).dig(self, rival);
+        }
+
+        else {
+            exeHumanGame(self, rival);
+        }
+    }
+
+    //human gaming process
+    public void exeHumanGame(Player self, Player rival) throws IOException {
 
         String input;
         //check input format

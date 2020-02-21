@@ -22,6 +22,8 @@ import java.io.IOException;
 public class App {
     private Player playerA;
     private Player playerB;
+    private Boolean aIsHuman;
+    private Boolean bIsHuman;
     private Instruction instruction = new Instruction();
     private Judge judge = new Judge();
     private PreGame preGame = new PreGame();
@@ -29,6 +31,11 @@ public class App {
 
     public static void main(String[] args) throws IOException {
         App main = new App();
+
+        //first decide player role
+        PlayerRole playerRole = new PlayerRole();
+        main.aIsHuman = playerRole.isHuman("A");
+        main.bIsHuman = playerRole.isHuman("B");
 
         //init player
         main.setPlayer();
@@ -59,24 +66,22 @@ public class App {
     public void setPlayer() {
         Integer row = 20;
         Integer col = 10;
-        //init player
-        playerA = new Player(row, col, "A", "B");
-        playerB = new Player(row, col, "B", "A");
+
+        if (aIsHuman) {
+            playerA = new Player(row, col, "A", "B");
+        }
+        else {
+            playerA = new Bot(row, col, "A", "B");
+        }
+
+        if (bIsHuman) {
+            playerB = new Player(row, col, "B", "A");
+        }
+        else {
+            playerB = new Bot(row, col, "B", "A");
+        }
+
     }
 
 
-    /*
-
-        getter for test
-
-
-     */
-
-    public Player getPlayerA() {
-        return playerA;
-    }
-
-    public Player getPlayerB() {
-        return playerB;
-    }
 }

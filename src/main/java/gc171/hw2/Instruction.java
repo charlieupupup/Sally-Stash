@@ -178,7 +178,7 @@ public class Instruction implements UI {
     //choose game role
     public void role(String playerName) {
         System.out.println("please choose player " + playerName + " 's role");
-        System.out.println("0 for human\n 1 for computer\n");
+        System.out.println("0 for human\n1 for computer\n");
     }
 }
 

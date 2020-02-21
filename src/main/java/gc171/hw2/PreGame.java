@@ -14,8 +14,20 @@ public class PreGame {
     Display display = new Display();
     Judge judge = new Judge();
 
+
     //game pre
+
     public void prepareGame(Player self) throws IOException {
+        if (self instanceof Bot) {
+            ((Bot) self).initBotStack();
+        }
+
+        else {
+            prepareHumanGame(self);
+        }
+    }
+
+    public void prepareHumanGame(Player self) throws IOException {
         instruction.start(self.getPlayerName(), self.getRivalName());
         //green stack
         initStack(self, "G", 2, 2);

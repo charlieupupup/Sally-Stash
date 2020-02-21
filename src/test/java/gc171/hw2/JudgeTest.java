@@ -20,9 +20,7 @@ class JudgeTest {
 
     @Test
     void gameFormat() {
-        System.out.println(judge.gameFormat(player, "Z33"));
-        System.out.println(judge.gameFormat(player, "a0"));
-        System.out.println(judge.gameFormat(player, "3a"));
+
     }
 
     @Test
