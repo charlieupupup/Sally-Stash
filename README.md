@@ -1,5 +1,7 @@
 # Sally Stash
 
+grade: 93/100
+
 ## instruction
 
 to run game
